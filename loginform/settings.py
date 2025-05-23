@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://career-guidance-system-2.onrender.com",
+    "https://career-guidance-system-1-rn6b.onrender.com"
+]
+
+
 
 # Application definition
 
