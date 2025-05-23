@@ -32,6 +32,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://career-guidance-system-1-rn6b.onrender.com"
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
