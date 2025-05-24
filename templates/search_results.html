@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Your search results content here -->
+  <h2>Search results for "{{ query }}"</h2>
+  
+  {% if careers %}
+    <h3>Careers</h3>
+    <ul>
+      {% for career in careers %}
+        <li><strong>{{ career.title }}</strong>: {{ career.description }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+  {% if skills %}
+    <h3>Skills</h3>
+    <ul>
+      {% for skill in skills %}
+        <li><strong>{{ skill.name }}</strong>: {{ skill.detail }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  
+  {% if courses %}
+    <h3>Courses</h3>
+    <ul>
+      {% for course in courses %}
+        <li><strong>{{ course.name }}</strong>: {{ course.overview }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if wiki_summary %}
+    <h3>Wikipedia Information about "{{ query }}"</h3>
+    <p>{{ wiki_summary }}</p>
+    {% if wiki_url %}
+      <p><a href="{{ wiki_url }}" target="_blank" rel="noopener noreferrer">Read more on Wikipedia</a></p>
+    {% endif %}
+  {% endif %}
+  
+{% endblock %}

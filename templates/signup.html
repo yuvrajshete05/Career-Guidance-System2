@@ -33,7 +33,7 @@ body{
     position: absolute;
     border-radius: 50%;
 }
-.shape:first-child{
+/* .shape:first-child{
     background: linear-gradient(
         #1845ad,
         #23a2f6
@@ -47,10 +47,11 @@ body{
         #ff512f,
         #f09819
     );
-    right: -30px;
-    bottom: -80px;
-}
+    right: -50px;
+    bottom: -130px;
+} */
 form{
+    margin-top: 50px;
     height: 600px;
     width: 450px;
     background-color: rgba(255,255,255,0.13);
@@ -135,10 +136,15 @@ button{
     </style>
 </head>
 <body>
+    
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
+
+   <h1 style="position: absolute; top: 30px; left: 50%; transform: translateX(-50%); color: white; font-family: 'Poppins', sans-serif;">Intelligent Career Guidance System</h1>
+
+
     <form action="" method="post">
         {% csrf_token %} 
         <h3>Signup Here</h3>
