@@ -461,10 +461,11 @@
 <section id="personalized-assessments" class="section">
   <h2>Personalized Assessments</h2>
 
-  <section class="section" style="display: flex; gap: 30px; justify-content: center; max-width: 1200px; margin: 40px auto;">
 
-    <!-- Logical Reasoning vertical block -->
-    <div class="mission-block" style="flex: 1; display: flex; flex-direction: column; box-shadow: none;">
+  <section class="section" style="display: flex; gap: 30px; justify-content: center; max-width: 1200px; margin: 40px auto; flex-wrap: wrap;">
+
+    <!-- Logical Reasoning -->
+    <div class="mission-block" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; box-shadow: none;">
       <h2>Logical Reasoning</h2>
       <p>Logical reasoning tests assess your ability to identify patterns, sequences, and relationships between concepts. These tests evaluate critical thinking skills.</p>
       <button onclick="showTest('logical')" class="btn-start">Start Test</button>
@@ -482,8 +483,8 @@
       </form>
     </div>
 
-    <!-- Numerical Reasoning vertical block -->
-    <div class="vision-block" style="flex: 1; display: flex; flex-direction: column; box-shadow: none;">
+    <!-- Numerical Reasoning -->
+    <div class="vision-block" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; box-shadow: none;">
       <h2>Numerical Reasoning</h2>
       <p>Numerical reasoning tests assess your ability to work with numbers quickly and accurately. They evaluate problem-solving skills involving basic arithmetic and algebra.</p>
       <button onclick="showTest('numerical')" class="btn-start">Start Test</button>
@@ -494,8 +495,8 @@
       </form>
     </div>
 
-    <!-- Verbal Reasoning vertical block -->
-    <div class="mission-block" style="flex: 1; display: flex; flex-direction: column; box-shadow: none;">
+    <!-- Verbal Reasoning -->
+    <div class="mission-block" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; box-shadow: none;">
       <h2>Verbal Reasoning</h2>
       <p>Verbal reasoning tests assess your ability to understand and analyze written information. They measure vocabulary, comprehension, and logical reasoning with words.</p>
       <button onclick="showTest('verbal')" class="btn-start">Start Test</button>
@@ -549,15 +550,62 @@
         document.getElementById('numerical-test').style.display = 'none';
         document.getElementById('verbal-test').style.display = 'none';
 
+        // Hide all result messages
+        const resultMessages = document.querySelectorAll('.result-message');
+        resultMessages.forEach(msg => msg.remove());
+
         // Show selected test form
-        document.getElementById(testType + '-test').style.display = 'block';
+        document.getElementById(testType + '-test').style.display = 'flex';
 
         // Scroll to the form smoothly
-        document.getElementById(testType + '-test').scrollIntoView({behavior: 'smooth'});
+        document.getElementById(testType + '-test').scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Handle Logical Reasoning Test
+      document.getElementById('logical-test').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const selected = document.querySelector('input[name="logical"]:checked');
+        const correct = "32";
+        showResult(selected?.value === correct, correct, this);
+      });
+
+      // Handle Numerical Reasoning Test
+      document.getElementById('numerical-test').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const input = this.querySelector('input[name="numerical"]');
+        const correct = "5";
+        showResult(input.value === correct, correct, this);
+      });
+
+      // Handle Verbal Reasoning Test
+      document.getElementById('verbal-test').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const selected = this.querySelector('select[name="verbal"]');
+        const correct = "scarce";
+        showResult(selected.value === correct, correct, this);
+      });
+
+      // Show result message
+      function showResult(isCorrect, correctAnswer, formElement) {
+        const existingMessage = formElement.querySelector('.result-message');
+        if (existingMessage) existingMessage.remove();
+
+        const message = document.createElement('div');
+        message.className = 'result-message';
+        message.style.marginTop = '15px';
+        message.style.fontWeight = 'bold';
+        message.style.color = isCorrect ? '#0f0' : '#f00';
+        message.textContent = isCorrect
+          ? '✅ Correct Answer!'
+          : `❌ Wrong Answer. Correct Answer is: ${correctAnswer}`;
+
+        formElement.appendChild(message);
       }
     </script>
+
   </section>
 </section>
+
 
 <section id="ai-career-recommendations" class="section">
   <h2> AI-Powered Career Recommendations</h2>
@@ -572,11 +620,11 @@
   <p>Regular progress tracking and adaptive learning recommendations.</p> 
 </section> 
 
-  <section id="community-support" class="section"> 
+  <!-- <section id="community-support" class="section"> 
     <h2> Community and Support</h2> 
     <p>Connect with peers, mentors, and industry experts.</p> 
     <p>Participate in webinars, workshops, and Q&A sessions.</p> 
     <p>Access resources for resume building, interview preparation, and more.</p> 
-  </section>
+  </section> -->
 {% endblock %}
 
