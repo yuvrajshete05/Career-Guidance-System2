@@ -1,0 +1,582 @@
+
+  <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Home - Career Guidance</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" />
+    <style>
+
+      
+      body {
+        background-color: black;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+        padding-top: 70px;
+      }
+
+
+       html {
+    scroll-behavior: smooth;
+  }
+
+
+      .navbar {
+        width: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background: #212529;
+      }
+
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.4rem;
+        color: #ffffff !important;
+      }
+
+      .navbar-nav .nav-link {
+        font-size: 1rem;
+        margin: 0 10px;
+        color: #dddddd !important;
+        transition: color 0.3s ease, background-color 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #ffffff !important;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+      }
+
+      .navbar-nav .nav-link.text-danger:hover {
+        background-color: rgba(255, 0, 0, 0.1);
+      }
+
+      .navbar-toggler {
+        border: none;
+      }
+
+      .main-section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh;
+      }
+
+      .image-section {
+        flex: 1 1 50%;
+        text-align: center;
+      }
+
+      .image-section img {
+        max-width: 90%;
+        height: 400px;
+      }
+
+      .text-section {
+        flex: 1 1 50%;
+        padding: 40px;
+        text-align: center;
+      }
+
+      .text-section h1 {
+        font-weight: 700;
+        font-size: 2.5rem;
+      }
+
+      .text-section p {
+        font-size: 1.1rem;
+        color: #cccccc;
+      }
+
+      .btn-pink {
+        background-color: #ff5c9d;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 25px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-pink:hover {
+        background-color: #ff3b85;
+      }
+
+      .features-section, .testimonials-section, .popular-careers, .news-section, .search-section, .contact-section {
+        padding: 60px 15px;
+        text-align: center;
+      }
+
+      .features-section h2, .testimonials-section h2, .popular-careers h2, .news-section h2, .search-section h2, .contact-section h2 {
+        margin-bottom: 40px;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .feature-box, .testimonial-box, .career-box, .news-box {
+        margin-bottom: 30px;
+      }
+
+      .feature-box h4, .career-box h4, .news-box h4 {
+        color: #ff5c9d;
+        font-weight: bold;
+      }
+
+      .career-box, .news-box {
+        border: 1px solid #444;
+        padding: 20px;
+        border-radius: 8px;
+        background: #121212;
+      }
+
+      .career-box p, .news-box p {
+        font-size: 0.95rem;
+        color: #bbb;
+      }
+
+      .search-bar {
+        max-width: 500px;
+        margin: 0 auto 40px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Input styles for search */
+      .search-bar input[type="text"] {
+        width: 80%;
+        padding: 10px 15px;
+        border-radius: 25px 0 0 25px;
+        border: none;
+        font-size: 1rem;
+        outline: none;
+      }
+
+      .search-bar button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #ff5c9d;
+        color: white;
+        font-weight: bold;
+        border-radius: 0 25px 25px 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .search-bar button:hover {
+        background-color: #ff3b85;
+      }
+
+    </style>
+  </head>
+  <body>
+   
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">CareerGuideAI</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'about' %}">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block style %}
+<style>
+
+  body {
+    background-color: black;
+  }
+
+  /* Center the About heading */
+  h1.centered-about {
+    text-align: center;
+    color: #ff5c9d;
+    margin-top: 80px;
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 2.5rem;
+    animation: scaleIn 1s ease-out both;
+  }
+
+  /* General Section styling */
+  .section {
+    background-color: #121212;
+    color: #ffffff;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1.2s ease-out both;
+  }
+
+  .section h2 {
+    font-size: 2rem;
+    color: #ff5c9d;
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: scaleIn 1s ease-out both;
+  }
+
+  .section p {
+    font-size: 1.1rem;
+    color: #dddddd;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    animation: fadeIn 1.4s ease-out both;
+  }
+
+  .about-highlight {
+    background-color: #1f1f1f;
+    border-left: 5px solid #ff5c9d;
+    padding: 20px;
+    border-radius: 8px;
+    font-style: italic;
+    color: #ccc;
+    animation: slideIn 1.4s ease-out both;
+  }
+
+  /* Mission block styling */
+  .mission-block {
+    flex: 1 1 400px;
+    background-color: black;
+    color: #ff5c9d;
+    border-radius: 15px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(255, 92, 157, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeInUp 1.2s ease-out both;
+  }
+
+  .mission-block h2 {
+    color: #ff5c9d;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    animation: scaleIn 1s ease-out both;
+  }
+
+  .mission-block p {
+    font-size: 1.1rem;
+    color: #dddddd;
+    line-height: 1.8;
+    animation: fadeIn 1.4s ease-out both;
+  }
+
+  /* Vision block styling */
+  .vision-block {
+    flex: 1 1 400px;
+    background-color: black;
+    color: #ff5c9d;
+    border-radius: 15px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(255, 92, 157, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeInUp 1.2s ease-out both;
+  }
+
+  .vision-block h2 {
+    color: #ff5c9d;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    animation: scaleIn 1s ease-out both;
+  }
+
+  .vision-block p {
+    font-size: 1.1rem;
+    color: #dddddd;
+    line-height: 1.8;
+    animation: fadeIn 1.4s ease-out both;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideIn {
+    0% { transform: translateX(50px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section {
+      padding: 25px 20px;
+    }
+
+    .section h2 {
+      font-size: 1.6rem;
+    }
+
+    .section p {
+      font-size: 1rem;
+    }
+
+    h1.centered-about {
+      font-size: 2rem;
+      margin-top: 60px;
+      margin-bottom: 30px;
+    }
+
+    /* Stack mission and vision vertically on smaller screens */
+    .mission-block, .vision-block {
+      flex: 1 1 100%;
+      margin-bottom: 20px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<h1 class="centered-about">About</h1>
+
+<!-- About Section -->
+<section id="about" class="section">
+  <h2>CareerGuideAI</h2>
+  <p>
+    CareerGuideAI is your personalized career assistant, built with advanced AI to help students and professionals navigate the complex world of careers with clarity and confidence.
+  </p>
+  <p>
+    From aptitude assessments to trending career data and curated learning paths, we bring together technology and guidance to empower your future decisions.
+  </p>
+  <div class="about-highlight">
+    "Stop guessing. Start progressing — with CareerGuideAI."
+  </div>
+</section>
+
+<!-- Mission and Vision side by side -->
+<section class="section" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  <!-- Mission Block -->
+  <div class="mission-block">
+    <h2>Our Mission</h2>
+    <p>
+      To empower individuals with personalized, AI-driven career guidance that opens doors to opportunities aligned with their skills and passions.
+    </p>
+  </div>
+
+  <!-- Vision Block -->
+  <div class="vision-block">
+    <h2>Our Vision</h2>
+    <p>
+      To become the most trusted digital career advisor, bridging the gap between ambition and achievement globally.
+    </p>
+  </div>
+</section>
+
+<section id="personalized-assessments" class="section">
+  <h2>Personalized Assessments</h2>
+
+  <section class="section" style="display: flex; gap: 30px; justify-content: center; max-width: 1200px; margin: 40px auto;">
+
+    <!-- Logical Reasoning vertical block -->
+    <div class="mission-block" style="flex: 1; display: flex; flex-direction: column; box-shadow: none;">
+      <h2>Logical Reasoning</h2>
+      <p>Logical reasoning tests assess your ability to identify patterns, sequences, and relationships between concepts. These tests evaluate critical thinking skills.</p>
+      <button onclick="showTest('logical')" class="btn-start">Start Test</button>
+      <form id="logical-test" style="display:none; margin-top: 20px; color: #ddd; flex-direction: column;">
+        <label>What comes next in the series? 2, 4, 8, 16, ?</label><br/>
+        <input type="radio" id="logical1" name="logical" value="20">
+        <label for="logical1">20</label><br/>
+        <input type="radio" id="logical2" name="logical" value="24">
+        <label for="logical2">24</label><br/>
+        <input type="radio" id="logical3" name="logical" value="32">
+        <label for="logical3">32</label><br/>
+        <input type="radio" id="logical4" name="logical" value="40">
+        <label for="logical4">40</label><br/><br/>
+        <button type="submit" class="btn-submit">Submit Logical Test</button>
+      </form>
+    </div>
+
+    <!-- Numerical Reasoning vertical block -->
+    <div class="vision-block" style="flex: 1; display: flex; flex-direction: column; box-shadow: none;">
+      <h2>Numerical Reasoning</h2>
+      <p>Numerical reasoning tests assess your ability to work with numbers quickly and accurately. They evaluate problem-solving skills involving basic arithmetic and algebra.</p>
+      <button onclick="showTest('numerical')" class="btn-start">Start Test</button>
+      <form id="numerical-test" style="display:none; margin-top: 20px; color: #ddd; flex-direction: column;">
+        <label>If 5x - 3 = 2x + 12, what is x?</label><br/>
+        <input type="number" name="numerical" placeholder="Your answer" style="padding: 10px; width: 160px; border-radius: 8px; border: none; background-color: #222; color: #ddd;"><br/><br/>
+        <button type="submit" class="btn-submit">Submit Numerical Test</button>
+      </form>
+    </div>
+
+    <!-- Verbal Reasoning vertical block -->
+    <div class="mission-block" style="flex: 1; display: flex; flex-direction: column; box-shadow: none;">
+      <h2>Verbal Reasoning</h2>
+      <p>Verbal reasoning tests assess your ability to understand and analyze written information. They measure vocabulary, comprehension, and logical reasoning with words.</p>
+      <button onclick="showTest('verbal')" class="btn-start">Start Test</button>
+      <form id="verbal-test" style="display:none; margin-top: 20px; color: #ddd; flex-direction: column;">
+        <label>Choose the word opposite in meaning to <em>"Abundant"</em>:</label><br/>
+        <select name="verbal" style="padding: 10px; border-radius: 8px; border: none; background: #222; color: #ddd; width: 200px;">
+          <option value="" disabled selected>Select an option</option>
+          <option value="scarce">Scarce</option>
+          <option value="plentiful">Plentiful</option>
+          <option value="numerous">Numerous</option>
+          <option value="excessive">Excessive</option>
+        </select><br/><br/>
+        <button type="submit" class="btn-submit">Submit Verbal Test</button>
+      </form>
+    </div>
+
+    <style>
+      .btn-start {
+        background-color: #ff5c9d;
+        color: black;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background-color 0.3s ease;
+      }
+      .btn-start:hover {
+        background-color: #e0528a;
+      }
+      .btn-submit {
+        background-color: #ff5c9d;
+        color: black;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .btn-submit:hover {
+        background-color: #e0528a;
+      }
+    </style>
+
+    <script>
+      function showTest(testType) {
+        // Hide all test forms
+        document.getElementById('logical-test').style.display = 'none';
+        document.getElementById('numerical-test').style.display = 'none';
+        document.getElementById('verbal-test').style.display = 'none';
+
+        // Show selected test form
+        document.getElementById(testType + '-test').style.display = 'block';
+
+        // Scroll to the form smoothly
+        document.getElementById(testType + '-test').scrollIntoView({behavior: 'smooth'});
+      }
+    </script>
+  </section>
+</section>
+
+<section id="ai-career-recommendations" class="section">
+  <h2> AI-Powered Career Recommendations</h2>
+  <p><strong>Tailored Suggestions:</strong> Personalized career options based on assessment results and your profile.</p>
+  <p><strong>Dynamic Industry Updates:</strong> Real-time data on industry trends and job market insights.</p>
+  <p><strong>Predictive Analytics:</strong> Forecasting career growth potential to guide your long-term planning.</p>
+
+</section> <section id="learning-paths" class="section"> 
+  <h2> Personalized Learning Paths</h2> 
+  <p>Customized skill development plans to bridge gaps and enhance employability.</p>
+  <p>Integration with online courses, certifications, and projects.</p> 
+  <p>Regular progress tracking and adaptive learning recommendations.</p> 
+</section> 
+
+  <section id="community-support" class="section"> 
+    <h2> Community and Support</h2> 
+    <p>Connect with peers, mentors, and industry experts.</p> 
+    <p>Participate in webinars, workshops, and Q&A sessions.</p> 
+    <p>Access resources for resume building, interview preparation, and more.</p> 
+  </section>
+{% endblock %}
+

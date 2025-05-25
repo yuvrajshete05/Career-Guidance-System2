@@ -91,19 +91,29 @@
     <!-- Contact Form -->
     <div class="contact-container mt-5">
       <h2>Contact Us</h2>
-      <form method="post">
+
+      <!-- Success message -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <form method="post" action="">
         {% csrf_token %}
         <div class="form-group">
           <label for="name">Your Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+          <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required>
         </div>
         <div class="form-group">
           <label for="email">Your Email</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+          <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
         </div>
         <div class="form-group">
           <label for="message">Your Message</label>
-          <textarea class="form-control" id="message" rows="4" placeholder="Type your message..." required></textarea>
+          <textarea name="message" class="form-control" id="message" rows="4" placeholder="Type your message..." required></textarea>
         </div>
         <button type="submit" class="btn btn-pink">Send Message</button>
       </form>

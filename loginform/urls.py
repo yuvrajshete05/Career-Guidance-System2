@@ -49,4 +49,8 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('search/', views.search_view, name='search'),  # Only one search path here
     path('contact/', views.contact_view, name='contact'),
+    path('submit/', views.submit_form, name='submit'),
+    path('about/', views.about_view, name='about'), 
+       
+
 ]
