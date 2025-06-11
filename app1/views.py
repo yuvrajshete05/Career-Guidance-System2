@@ -1,65 +1,3 @@
-# from django.shortcuts import render, redirect,HttpResponse
-# from django.contrib.auth import logout
-# from django.contrib.auth.models import User
-# from django.contrib.auth import authenticate,login
-
-# def HomePage(request):
-#     return render(request, 'home.html')
-
-# from django.contrib.auth.models import User
-# from django.shortcuts import render, redirect
-# from django.http import HttpResponse
-
-# def SignupPage(request):
-#     if request.method == 'POST':
-#         uname = request.POST.get('username')
-#         email = request.POST.get('email')
-#         pass1 = request.POST.get('password1')
-#         pass2 = request.POST.get('password2')
-
-#         if pass1 != pass2:
-#             return HttpResponse("Your password and Confirm password are not same !!")
-
-#         if User.objects.filter(username=uname).exists():
-#             return HttpResponse("Username already exists. Please choose a different one.")
-
-#         if User.objects.filter(email=email).exists():
-#             return HttpResponse("Email already registered. Try logging in or use another email.")
-
-  
-#         my_user = User.objects.create_user(username=uname, email=email, password=pass1)
-#         my_user.save()
-#         return redirect('login')
-
-#     return render(request, 'signup.html')
-
-
-
-
-
-# def LoginPage(request):
-#     if request.method=='POST':
-#         username=request.POST.get('username')
-#         pass1=request.POST.get('pass')
-#         user=authenticate(request,username=username,password=pass1)
-#         if user is not None:
-#             login(request,user)
-#             return redirect('home')
-#         else:
-#             return HttpResponse("Username or Password is incorrect!!!")
-
-#     return render(request,'login.html')
-
-
-# def LogoutPage(request):
-#     logout(request)
-#     return redirect('login')
-
-
-# def assessment_view(request):
-#     return render(request, 'assessment.html')
-
-
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -170,86 +108,8 @@ def search_view(request):
     return render(request, 'search_results.html', context)
 
 
-# def submit_view(request):
-#     if request.method == 'POST':
-#         # handle form submission / prediction here
-#         ...
-#         return render(request, 'result.html', context)
-#     else:
-#         # optionally handle GET or redirect
-#         return redirect('home')  # or some other pagedef submit_form(request):def submit_form(request):
 
 
-# def submit_form(request):
-#     if request.method == "POST":
-#         # Get and normalize all inputs
-#         def normalize(text):
-#             return text.strip().lower() if text else ""
-
-#         name = normalize(request.POST.get('name'))
-#         gender = normalize(request.POST.get('gender'))
-#         age = normalize(request.POST.get('age'))
-#         course = normalize(request.POST.get('course'))
-#         ug_specialization = normalize(request.POST.get('ug_specialization'))
-#         cgpa = normalize(request.POST.get('cgpa'))
-#         interest = normalize(request.POST.get('interest'))
-#         interests = normalize(request.POST.get('interests'))
-#         skills = normalize(request.POST.get('skills'))
-#         certifications = normalize(request.POST.get('certifications'))
-#         working = normalize(request.POST.get('working'))
-#         job_title = normalize(request.POST.get('job_title'))
-#         masters_field = normalize(request.POST.get('masters_field'))
-
-#         # Combine and split into individual words
-#         combined_text = f"{course} {ug_specialization} {interest} {interests} {skills} {certifications} {job_title} {masters_field}"
-#         words = set(combined_text.lower().split())
-
-#         print("Combined Text:", combined_text)
-#         print("Extracted Words:", words)
-
-#         career_keywords = {
-#             "Software Engineer": {"programming", "computer", "technology", "python", "java", "developer"},
-#             "Graphic Designer": {"drawing", "design", "graphic", "photoshop", "illustrator"},
-#             "Marketing Manager": {"communication", "business", "marketing", "sales", "commerce"},
-#             "Doctor": {"biology", "medicine", "surgery", "anatomy", "hospital"},
-#             "Engineer": {"physics", "maths", "engineering", "mechanical", "civil"},
-#             "Data Scientist": {"data", "machine", "learning", "ai", "analytics", "statistics"},
-#         }
-
-#         max_score = 0
-#         predicted_career = "General Career Advisor"
-
-#         for career, keywords in career_keywords.items():
-#             score = len(words.intersection(keywords))
-#             print(f"Matching with {career}: {score}")
-#             if score > max_score:
-#                 max_score = score
-#                 predicted_career = career
-
-#         max_possible = len(career_keywords[predicted_career])
-#         accuracy = int((max_score / max_possible) * 100) if max_possible else 0
-
-#         context = {
-#             'name': name,
-#             'gender': gender,
-#             'age': age,
-#             'course': course,
-#             'ug_specialization': ug_specialization,
-#             'cgpa': cgpa,
-#             'interest': interest,
-#             'interests': interests,
-#             'skills': skills,
-#             'certifications': certifications,
-#             'working': working,
-#             'job_title': job_title,
-#             'masters_field': masters_field,
-#             'career': predicted_career,
-#             'accuracy': f"{accuracy}%"
-#         }
-
-#         return render(request, 'result.html', context)
-
-#     return render(request, 'home.html')
 
 from django.shortcuts import render
 import re
@@ -298,12 +158,14 @@ def submit_form(request):
                 max_match = len(match)
                 matched_words = match
 
+
         # Accuracy calculation
         if max_match > 0:
             accuracy = round((max_match / len(career_keywords[predicted_career])) * 100)
         else:
             predicted_career = "General Career Advisor"
             accuracy = 33
+
 
         # Render result
         context = {
@@ -334,6 +196,8 @@ def submit_form(request):
 from .models import Contact
 from django.shortcuts import render, redirect
 
+
+
 def contact_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -344,6 +208,7 @@ def contact_view(request):
         return redirect('/thankyou/')  # or wherever you want
 
     return render(request, 'contact.html')
+
 
 
 def thank_you(request):
@@ -369,3 +234,12 @@ def login_view(request):
             messages.error(request, "Invalid username or password")
     
     return render(request, 'login.html')
+
+
+
+
+from .utils import get_gemini_key
+
+def my_ai_view(request):
+    key = get_gemini_key()
+    # Use it to call Gemini API securely

@@ -19,7 +19,7 @@ class ContactMessage(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)  # Add this field
 
 
-# loginform/models.py
+
 from django.db import models
 
 class Contact(models.Model):
@@ -32,13 +32,19 @@ class Contact(models.Model):
         return self.name
 
 
-# app1/models.py
 
 from django.db import models
 
 class Login(models.Model):
     username = models.CharField(max_length=50)
-    password = models.CharField(max_length=128)  # Usually hashed, but for example plain text here
+    password = models.CharField(max_length=128)  
 
     def __str__(self):
         return self.username
+
+
+
+
+
+
+
