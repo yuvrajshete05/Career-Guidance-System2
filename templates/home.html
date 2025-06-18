@@ -1,5 +1,4 @@
-
-  <!doctype html>
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -8,8 +7,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" />
     <style>
-
-      
       body {
         background-color: black;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -17,11 +14,9 @@
         padding-top: 70px;
       }
 
-
-       html {
-    scroll-behavior: smooth;
-  }
-
+      html {
+        scroll-behavior: smooth;
+      }
 
       .navbar {
         width: 100%;
@@ -148,9 +143,9 @@
         margin-top: 50px;
         font-size: 0.9rem;
         color: rgba(255, 255, 255, 0.7);
-      }
+      } -->
 
-      /* Input styles for search */
+      <!-- /* Input styles for search */
       .search-bar input[type="text"] {
         width: 80%;
         padding: 10px 15px;
@@ -158,8 +153,8 @@
         border: none;
         font-size: 1rem;
         outline: none;
-      }
-
+      } -->
+<!-- 
       .search-bar button {
         padding: 10px 20px;
         border: none;
@@ -169,17 +164,553 @@
         border-radius: 0 25px 25px 0;
         cursor: pointer;
         transition: background-color 0.3s ease;
+      } -->
+
+      <!-- .search-bar button:hover {
+        background-color: #ff3b85;
+      }
+    </style>
+  </head>
+  <body> -->
+    <!-- Navbar -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">CareerGuideAI</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+
+      <!-- <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-danger" href="{% url 'login' %}">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav> -->
+
+    <!-- Font Awesome for icons -->
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" /> -->
+
+    <!-- Main Section -->
+    <!-- <div class="main-section container-fluid">
+      <div class="row w-100 align-items-center">
+        <div class="col-md-6 image-section">
+          <img src="https://cdn3d.iconscout.com/3d/premium/thumb/casual-girl-pointing-to-right-side-using-both-hand-8418465-6678443.png" alt="Career Guide Character" />
+        </div>
+        <div class="col-md-6 text-section">
+          <h1>Intelligent Career Guidance System</h1>
+          <p>Discover your strengths and passions with AI-powered insights.</p>
+          <p>Take our quick test to find the perfect career path after Engineering.</p> -->
+          <!-- Changed to a direct link to the career form page -->
+          <!-- <a href="{% url 'career_form' %}" class="btn btn-pink">
+            Get Started!
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Search Section -->
+    <!-- <section class="search-section">
+      <h2>Quick Career Search</h2>
+      <form class="search-bar" action="{% url 'search' %}" method="GET">
+        <input type="text" name="query" placeholder="Search careers, skills, courses..." required />
+        <button type="submit">Search</button>
+      </form>
+    </section> -->
+
+    <!-- Features Section -->
+    <!-- <section class="features-section">
+      <h2>Why Choose CareerGuideAI?</h2>
+      <div class="row">
+        <div class="col-md-4 feature-box">
+          <h4>Personalized Guidance</h4>
+          <p>Receive tailored career advice based on your aptitude, interests, and academic background. Our AI analyzes your responses and suggests the best-suited paths, taking the guesswork out of decision-making.</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Instant Assessments</h4>
+          <p>Take a quick, scientifically designed test that evaluates your skills, personality traits, and preferences to identify suitable careers in minutes. No more hours of research—get accurate suggestions fast.</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Help with Educational Planning</h4>
+          <p>A career counsellor doesn’t just tell you what career might suit you—they also help plan the educational roadmap to get there, including: University or college selection, Course recommendations, Scholarship or entrance exam guidance</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Career Roadmaps</h4>
+          <p>Visualize your journey step-by-step with detailed roadmaps outlining key milestones. From degree requirements to recommended certifications, we ensure you stay on track from student to professional.</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Awareness of New-Age Careers</h4>
+          <p>Intelligent counsellors stay updated with market trends, emerging fields, and in-demand skills. They can introduce you to non-traditional or high-growth paths you might not have considered.</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Interactive Dashboard</h4>
+          <p>Manage your progress, set career goals, and explore relevant skills and learning paths with a user-friendly dashboard. Get reminders, track completed assessments, and stay organized through every stage of your career planning.</p>
+        </div>
+      </div>
+    </section> -->
+<!-- 
+    Popular Careers
+    <section class="popular-careers">
+      <h2>Popular Career Options</h2>
+      <div class="row">
+        <div class="col-md-3 career-box">
+          <h4>Data Scientist</h4>
+          <p>High demand, lucrative salary, requires skills in Python, ML, and statistics.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>Software Engineer</h4>
+          <p>Core tech role, excellent job growth, focus on coding and system design.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>Civil Engineer</h4>
+          <p>Design and build infrastructure, great for those who love planning and fieldwork.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>UX Designer</h4>
+          <p>Combine creativity and tech, focus on improving user experiences.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>AI/ML Engineer</h4>
+          <p>Work with artificial intelligence algorithms and machine learning models to build smart systems.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>Cybersecurity Analyst</h4>
+          <p>Protect digital infrastructure and data from cyber threats with skills in security protocols and tools.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>DevOps Engineer</h4>
+          <p>Bridge development and operations, automate deployment, and manage infrastructure efficiently.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>Product Manager</h4>
+          <p>Lead cross-functional teams, define product strategy, and ensure user satisfaction and business success.</p>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- News & Updates
+    <section class="news-section">
+      <h2>Latest Career News & Trends</h2>
+      <div class="row">
+        <div class="col-md-4 news-box">
+          <h4>Top 5 Emerging Careers in 2025</h4>
+          <p>Explore growing fields like AI, Renewable Energy, and Cybersecurity shaping the future job market.</p>
+        </div>
+        <div class="col-md-4 news-box">
+          <h4>How to Upskill for Your Dream Job</h4>
+          <p>Learn key skills through online courses and certifications to boost your career prospects.</p>
+        </div>
+        <div class="col-md-4 news-box">
+          <h4>Understanding Job Market Analytics</h4>
+          <p>Data-driven insights to help you make informed career decisions.</p>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- Contact Section -->
+    <!-- <section class="contact-section">
+      <h2>Need Help?</h2>
+      <p>Contact our career experts or chat with our AI assistant for personalized support.</p>
+      <a href="{% url 'contact' %}" class="btn btn-pink">Contact Us</a>
+    </section> -->
+
+    <!-- Footer -->
+    <!-- <footer>
+      &copy; 2025 Intelligent Career Guidance | Powered by AI
+    </footer> -->
+
+    <!-- Bootstrap JS dependencies -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  </body>
+</html> -->
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Home - Career Guidance</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+      /* --- Global & Body Styles --- */
+      body {
+        background-color: #1a202c; /* Deep charcoal for a dark, modern look */
+        font-family: 'Poppins', sans-serif; /* Modern, readable font */
+        color: #e2e8f0; /* Off-white for readability on dark background */
+        padding-top: 70px;
+        line-height: 1.6; /* Improved readability */
+        transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* --- Navbar Styles --- */
+      .navbar {
+        width: 100%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); /* Enhanced shadow for depth */
+        background: #2d3748; /* Darker blue-gray for navbar */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .navbar-brand {
+        font-weight: 700; /* Bolder font weight */
+        font-size: 1.6rem; /* Slightly larger brand name */
+        color: #ffffff !important;
+        font-family: 'Montserrat', sans-serif; /* Montserrat for brand */
+        letter-spacing: 0.5px;
+      }
+
+      .navbar-nav .nav-link {
+        font-size: 1.05rem;
+        margin: 0 12px; /* Increased margin */
+        color: #cbd5e0 !important; /* Lighter off-white */
+        transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease-out;
+        padding: 8px 15px; /* Added padding for better hover area */
+        border-radius: 8px; /* Rounded corners for links */
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #ffffff !important;
+        background-color: rgba(255, 255, 255, 0.15); /* More visible hover */
+        transform: translateY(-2px); /* Subtle lift on hover */
+      }
+
+      .navbar-nav .nav-link.text-danger:hover {
+        background-color: rgba(255, 0, 0, 0.2); /* Redder hover for logout */
+      }
+
+      .navbar-toggler {
+        border: none;
+        outline: none; /* Remove default outline */
+      }
+
+      /* --- Main Hero Section --- */
+      .main-section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        min-height: 85vh; /* Take more vertical space */
+        padding: 50px 15px; /* Added padding */
+      }
+
+      .image-section {
+        flex: 1 1 50%;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .image-section img {
+        max-width: 95%; /* Slightly larger image */
+        height: auto; /* Maintain aspect ratio */
+        max-height: 450px; /* Cap height */
+        border-radius: 15px; /* Rounded image corners */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+        transition: transform 0.3s ease-out;
+      }
+      .image-section img:hover {
+          transform: scale(1.02); /* Slight zoom on hover */
+      }
+
+      .text-section {
+        flex: 1 1 50%;
+        padding: 40px;
+        text-align: center;
+      }
+
+      .text-section h1 {
+        font-weight: 700;
+        font-size: 3.2rem; /* Larger hero heading */
+        color: #63b3ed; /* Lighter blue for main heading */
+        font-family: 'Montserrat', sans-serif;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Subtle text shadow */
+      }
+
+      .text-section p {
+        font-size: 1.2rem; /* Larger paragraph text */
+        color: #a0aec0; /* Softer text color */
+        margin-bottom: 25px;
+      }
+
+      .btn-pink {
+        background-color: #ff5c9d; /* Vibrant pink */
+        border: none;
+        color: white;
+        padding: 14px 35px; /* Larger padding for button */
+        font-size: 1.2rem; /* Larger button text */
+        font-weight: 600; /* Medium bold */
+        border-radius: 30px; /* More rounded */
+        margin-top: 20px;
+        transition: background-color 0.3s ease, transform 0.2s ease-out, box-shadow 0.3s ease;
+        box-shadow: 0 4px 10px rgba(255, 92, 157, 0.4); /* Pink shadow */
+      }
+
+      .btn-pink:hover {
+        background-color: #ff3b85; /* Darker pink on hover */
+        transform: translateY(-3px); /* Lift on hover */
+        box-shadow: 0 8px 20px rgba(255, 92, 157, 0.6); /* More prominent shadow on hover */
+      }
+      .btn-pink:active {
+        transform: translateY(0); /* Press down on click */
+        box-shadow: 0 2px 5px rgba(255, 92, 157, 0.3);
+      }
+
+      /* --- Section Headings --- */
+      .features-section, .testimonials-section, .popular-careers, .news-section, .search-section, .contact-section {
+        padding: 80px 15px; /* Increased vertical padding */
+        text-align: center;
+      }
+
+      .features-section h2, .testimonials-section h2, .popular-careers h2, .news-section h2, .search-section h2, .contact-section h2 {
+        margin-bottom: 50px; /* Increased margin below heading */
+        font-size: 2.8rem; /* Larger section headings */
+        font-weight: 700;
+        color: #cbd5e0; /* Off-white for section headings */
+        font-family: 'Montserrat', sans-serif;
+        position: relative;
+        padding-bottom: 15px;
+      }
+      .features-section h2::after, .testimonials-section h2::after, .popular-careers h2::after, .news-section h2::after, .search-section h2::after, .contact-section h2::after {
+          content: '';
+          display: block;
+          width: 80px;
+          height: 4px;
+          background-color: #ff5c9d; /* Pink underline */
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          border-radius: 2px;
+      }
+
+      /* --- Box Styles (Features, Careers, News) --- */
+      .feature-box, .testimonial-box, .career-box, .news-box {
+        margin-bottom: 30px;
+        background: #2d3748; /* Darker card background */
+        border: 1px solid #4a5568; /* Softer border */
+        border-radius: 12px; /* More rounded corners */
+        padding: 30px; /* Increased padding */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+        transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Space out content */
+        height: 100%; /* Ensure equal height in rows */
+      }
+
+      .feature-box:hover, .career-box:hover, .news-box:hover {
+        transform: translateY(-8px); /* Lift on hover */
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); /* More pronounced shadow on hover */
+      }
+
+      .feature-box h4, .career-box h4, .news-box h4 {
+        color: #ff5c9d; /* Vibrant pink for subheadings */
+        font-weight: 600; /* Slightly less bold */
+        font-size: 1.4rem; /* Larger subheading */
+        margin-bottom: 15px;
+        font-family: 'Montserrat', sans-serif;
+      }
+      .testimonial-box h4 {
+        color: #38c172; /* Green for testimonial name */
+        font-weight: 600;
+        font-size: 1.3rem;
+      }
+
+      .feature-box p, .career-box p, .news-box p, .testimonial-box p {
+        font-size: 1rem;
+        color: #a0aec0; /* Softer text color */
+        flex-grow: 1; /* Allow paragraphs to take space */
+      }
+
+      /* --- Search Bar --- */
+      .search-section {
+          background-color: #212529; /* Slightly different background for search section */
+          padding: 60px 15px;
+      }
+      .search-bar {
+        max-width: 600px; /* Wider search bar */
+        margin: 0 auto 40px;
+        display: flex;
+        border-radius: 30px; /* Rounded container */
+        overflow: hidden; /* Ensure content respects border-radius */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow for search bar */
+      }
+
+      .search-bar input[type="text"] {
+        flex-grow: 1; /* Input takes available space */
+        padding: 15px 25px; /* Larger padding */
+        border-radius: 30px 0 0 30px; /* Rounded left side */
+        border: 2px solid #ff5c9d; /* Pink border */
+        font-size: 1.1rem;
+        outline: none;
+        background-color: #1a202c; /* Dark input background */
+        color: #e2e8f0; /* Light input text */
+        transition: border-color 0.3s ease;
+      }
+      .search-bar input[type="text"]::placeholder {
+          color: #a0aec0; /* Placeholder color */
+      }
+      .search-bar input[type="text"]:focus {
+          border-color: #63b3ed; /* Blue border on focus */
+      }
+
+      .search-bar button {
+        padding: 15px 30px; /* Larger padding */
+        border: none;
+        background-color: #ff5c9d; /* Pink button */
+        color: white;
+        font-weight: 600;
+        border-radius: 0 30px 30px 0; /* Rounded right side */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease-out;
       }
 
       .search-bar button:hover {
         background-color: #ff3b85;
+        transform: scale(1.02); /* Subtle scale on hover */
+      }
+      .search-bar button:active {
+        transform: scale(0.98);
       }
 
+      /* --- Footer Styles --- */
+      footer {
+        background-color: #2d3748; /* Matching navbar background */
+        color: #a0aec0;
+        text-align: center;
+        padding: 30px 15px; /* Increased padding */
+        margin-top: 60px;
+        font-size: 0.95rem;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.4); /* Shadow for footer */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      /* --- Responsive Adjustments --- */
+      @media (max-width: 992px) {
+        .text-section h1 {
+          font-size: 2.8rem;
+        }
+        .text-section p {
+          font-size: 1.1rem;
+        }
+        .btn-pink {
+          padding: 12px 28px;
+          font-size: 1.1rem;
+        }
+        .features-section h2, .popular-careers h2, .news-section h2, .search-section h2, .contact-section h2 {
+          font-size: 2.2rem;
+        }
+        .feature-box h4, .career-box h4, .news-box h4 {
+            font-size: 1.3rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .main-section {
+          flex-direction: column; /* Stack image and text vertically */
+          text-align: center;
+          min-height: unset; /* Remove min-height for better mobile flow */
+        }
+        .image-section, .text-section {
+          flex: 1 1 100%; /* Take full width */
+          padding: 20px;
+        }
+        .image-section img {
+          max-height: 300px;
+        }
+        .text-section h1 {
+          font-size: 2.5rem;
+        }
+        .text-section p {
+          font-size: 1rem;
+        }
+        .btn-pink {
+          font-size: 1rem;
+          padding: 10px 25px;
+        }
+        .features-section, .popular-careers, .news-section, .search-section, .contact-section {
+          padding: 40px 10px;
+        }
+        .features-section h2, .popular-careers h2, .news-section h2, .search-section h2, .contact-section h2 {
+          font-size: 2rem;
+          margin-bottom: 30px;
+        }
+        .search-bar input[type="text"], .search-bar button {
+            padding: 12px 20px; /* Slightly smaller input/button on mobile */
+            font-size: 1rem;
+        }
+        .search-bar {
+            flex-direction: column; /* Stack search input and button */
+            border-radius: 10px;
+            overflow: visible;
+            box-shadow: none; /* Remove search bar shadow for stacked layout */
+        }
+        .search-bar input[type="text"] {
+            border-radius: 10px;
+            margin-bottom: 10px; /* Space between input and button */
+            border: 2px solid #ff5c9d; /* Retain border */
+        }
+        .search-bar button {
+            border-radius: 10px;
+            width: 100%; /* Full width button */
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-brand {
+          font-size: 1.2rem;
+        }
+        .navbar-nav .nav-link {
+          font-size: 0.95rem;
+          margin: 0 5px;
+          padding: 6px 10px;
+        }
+        .text-section h1 {
+          font-size: 2rem;
+        }
+        .features-section h2, .popular-careers h2, .news-section h2, .search-section h2, .contact-section h2 {
+          font-size: 1.8rem;
+        }
+        .feature-box, .career-box, .news-box {
+          padding: 20px;
+        }
+      }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <a class="navbar-brand" href="#">CareerGuideAI</a>
       <button
         class="navbar-toggler"
@@ -195,184 +726,22 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-          <a class="nav-link" href="{% url 'assessment' %}">About</a>
-          <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
-          <li class="nav-item"><a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-danger" href="{% url 'login' %}">Logout</a>
+          </li>
         </ul>
       </div>
     </nav>
-     -->
 
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">CareerGuideAI</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'home' %}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'about' %}">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-
-    
-    <!-- Font Awesome for icons -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-
-<div class="modal fade" id="careerFormModal" tabindex="-1" role="dialog" aria-labelledby="careerFormLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header">
-        <h4 class="modal-title w-100 text-center" id="careerFormLabel">
-          <i class="fas fa-graduation-cap me-2 text-warning"></i>Intelligent Career Recommendation System
-        </h4>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <h5 class="text-center mb-4">
-          <i class="fas fa-user me-2 text-info"></i>Enter Your Details
-        </h5>
-
-        <form action="{% url 'submit' %}" method="POST">
-
-
-          {% csrf_token %}
-
-          <!-- Full Name -->
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" class="form-control" name="name" required />
-          </div>
-
-          <!-- Gender -->
-          <div class="form-group">
-            <label for="gender">Gender</label>
-            <select class="form-control" name="gender" required>
-              <option value="" disabled selected>Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <!-- Age -->
-          <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" class="form-control" id="age" name="age" min="10" max="100" required>
-          </div>
-
-          <!-- Undergraduate Course -->
-          <div class="form-group">
-            <label for="course">Undergraduate Course</label>
-            <select class="form-control" name="course" required>
-              <option value="" disabled selected>Select Course</option>
-              <option value="B.Tech">B.Tech</option>
-              <option value="B.Sc">B.Sc</option>
-              <option value="BCA">BCA</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <!-- UG Specialization -->
-          <div class="form-group">
-            <label for="ug_specialization">UG Specialization (e.g., Computer Science)</label>
-            <input type="text" class="form-control" id="ug_specialization" name="ug_specialization" required>
-          </div>
-
-          <!-- CGPA -->
-          <div class="form-group">
-            <label for="cgpa">CGPA (0 to 10)</label>
-            <input type="number" class="form-control" id="cgpa" name="cgpa" step="0.01" min="0" max="10" required>
-          </div>
-
-          <!-- Area of Interest -->
-          <!-- <div class="form-group">
-            <label for="interest">Area of Interest</label>
-            <input type="text" class="form-control" name="interest" />
-          </div> -->
-
-          <!-- Interests -->
-          <div class="form-group">
-            <label for="interests">Interests (comma-separated, e.g., AI, Web, Cloud)</label>
-            <input type="text" class="form-control" id="interests" name="interests">
-          </div>
-
-          <!-- Skills -->
-          <div class="form-group">
-            <label for="skills">Skills (comma-separated, e.g., Python, SQL)</label>
-            <input type="text" class="form-control" id="skills" name="skills">
-          </div>
-
-          <!-- Certifications -->
-          <div class="form-group">
-            <label for="certifications">Certifications (comma-separated, e.g., Coursera ML)</label>
-            <input type="text" class="form-control" id="certifications" name="certifications">
-          </div>
-
-          <!-- Currently Working -->
-          <div class="form-group">
-            <label>Are you working currently?</label><br>
-            <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" id="working_yes" name="working" value="Yes" checked>
-              <label class="form-check-label" for="working_yes">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input type="radio" class="form-check-input" id="working_no" name="working" value="No">
-              <label class="form-check-label" for="working_no">No</label>
-            </div>
-          </div>
-
-          <!-- Job Title -->
-          <div class="form-group">
-            <label for="job_title">Current Job Title (or NA if not working)</label>
-            <input type="text" class="form-control" id="job_title" name="job_title">
-          </div>
-
-          <!-- Master's Field -->
-          <div class="form-group">
-            <label for="masters_field">Master's Degree Field (or NA if not applicable)</label>
-            <input type="text" class="form-control" id="masters_field" name="masters_field">
-          </div>
-
-          <!-- Submit -->
-          <button type="submit" class="btn btn-success btn-block mt-4">🚀 Predict Career</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-    <!-- Main Section -->
     <div class="main-section container-fluid">
       <div class="row w-100 align-items-center">
         <div class="col-md-6 image-section">
@@ -382,15 +751,13 @@
           <h1>Intelligent Career Guidance System</h1>
           <p>Discover your strengths and passions with AI-powered insights.</p>
           <p>Take our quick test to find the perfect career path after Engineering.</p>
-          <button type="button" class="btn btn-pink" data-toggle="modal" data-target="#careerFormModal">
-  Get Started!
-</button>
-
+          <a href="{% url 'career_form' %}" class="btn btn-pink">
+            Get Started!
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- Search Section -->
     <section class="search-section">
       <h2>Quick Career Search</h2>
       <form class="search-bar" action="{% url 'search' %}" method="GET">
@@ -399,91 +766,74 @@
       </form>
     </section>
 
-    <!-- Features Section -->
-   <section class="features-section">
-  <h2>Why Choose CareerGuideAI?</h2>
-  <div class="row">
-    <div class="col-md-4 feature-box">
-      <h4>Personalized Guidance</h4>
-      <p>Receive tailored career advice based on your aptitude, interests, and academic background.
-      Our AI analyzes your responses and suggests the best-suited paths, taking the guesswork out of decision-making.</p>
-    </div>
-    <div class="col-md-4 feature-box">
-      <h4>Instant Assessments</h4>
-      <p>Take a quick, scientifically designed test that evaluates your skills, personality traits,
-      and preferences to identify suitable careers in minutes. No more hours of research—get accurate suggestions fast.</p>
-    </div>
-    <div class="col-md-4 feature-box">
-      <h4>Help with Educational Planning</h4>
-      <p>A career counsellor doesn’t just tell you what career might suit you—they also help plan the educational roadmap to get there, including:
+    <section class="features-section">
+      <h2>Why Choose CareerGuideAI?</h2>
+      <div class="row">
+        <div class="col-md-4 feature-box">
+          <h4>Personalized Guidance</h4>
+          <p>Receive tailored career advice based on your aptitude, interests, and academic background. Our AI analyzes your responses and suggests the best-suited paths, taking the guesswork out of decision-making.</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Instant Assessments</h4>
+          <p>Take a quick, scientifically designed test that evaluates your skills, personality traits, and preferences to identify suitable careers in minutes. No more hours of research—get accurate suggestions fast.</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Help with Educational Planning</h4>
+          <p>A career counsellor doesn’t just tell you what career might suit you—they also help plan the educational roadmap to get there, including: University or college selection, Course recommendations, Scholarship or entrance exam guidance</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Career Roadmaps</h4>
+          <p>Visualize your journey step-by-step with detailed roadmaps outlining key milestones. From degree requirements to recommended certifications, we ensure you stay on track from student to professional.</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Awareness of New-Age Careers</h4>
+          <p>Intelligent counsellors stay updated with market trends, emerging fields, and in-demand skills. They can introduce you to non-traditional or high-growth paths you might not have considered.</p>
+        </div>
+        <div class="col-md-4 feature-box">
+          <h4>Interactive Dashboard</h4>
+          <p>Manage your progress, set career goals, and explore relevant skills and learning paths with a user-friendly dashboard. Get reminders, track completed assessments, and stay organized through every stage of your career planning.</p>
+        </div>
+      </div>
+    </section>
 
-University or college selection
+    <section class="popular-careers">
+      <h2>Popular Career Options</h2>
+      <div class="row">
+        <div class="col-md-3 career-box">
+          <h4>Data Scientist</h4>
+          <p>High demand, lucrative salary, requires skills in Python, ML, and statistics.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>Software Engineer</h4>
+          <p>Core tech role, excellent job growth, focus on coding and system design.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>Civil Engineer</h4>
+          <p>Design and build infrastructure, great for those who love planning and fieldwork.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>UX Designer</h4>
+          <p>Combine creativity and tech, focus on improving user experiences.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>AI/ML Engineer</h4>
+          <p>Work with artificial intelligence algorithms and machine learning models to build smart systems.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>Cybersecurity Analyst</h4>
+          <p>Protect digital infrastructure and data from cyber threats with skills in security protocols and tools.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>DevOps Engineer</h4>
+          <p>Bridge development and operations, automate deployment, and manage infrastructure efficiently.</p>
+        </div>
+        <div class="col-md-3 career-box">
+          <h4>Product Manager</h4>
+          <p>Lead cross-functional teams, define product strategy, and ensure user satisfaction and business success.</p>
+        </div>
+      </div>
+    </section>
 
-Course recommendations
-
-Scholarship or entrance exam guidance</p>
-    </div>
-    <div class="col-md-4 feature-box">
-      <h4>Career Roadmaps</h4>
-      <p>Visualize your journey step-by-step with detailed roadmaps outlining key milestones.
-      From degree requirements to recommended certifications, we ensure you stay on track from student to professional.</p>
-    </div>
-    <div class="col-md-4 feature-box">
-      <h4>Awareness of New-Age Careers</h4>
-      <p>Intelligent counsellors stay updated with market trends, emerging fields, and in-demand skills. They can introduce you to non-traditional or high-growth paths you might not have considered.</p>
-    </div>
-    <div class="col-md-4 feature-box">
-      <h4>Interactive Dashboard</h4>
-      <p>Manage your progress, set career goals, and explore relevant skills and learning paths with a user-friendly dashboard.
-      Get reminders, track completed assessments, and stay organized through every stage of your career planning.</p>
-    </div>
-  </div>
-</section>
-
-</section>
-
-
-    <!-- Popular Careers -->
-<section class="popular-careers">
-  <h2>Popular Career Options</h2>
-  <div class="row">
-    <div class="col-md-3 career-box">
-      <h4>Data Scientist</h4>
-      <p>High demand, lucrative salary, requires skills in Python, ML, and statistics.</p>
-    </div>
-    <div class="col-md-3 career-box">
-      <h4>Software Engineer</h4>
-      <p>Core tech role, excellent job growth, focus on coding and system design.</p>
-    </div>
-    <div class="col-md-3 career-box">
-      <h4>Civil Engineer</h4>
-      <p>Design and build infrastructure, great for those who love planning and fieldwork.</p>
-    </div>
-    <div class="col-md-3 career-box">
-      <h4>UX Designer</h4>
-      <p>Combine creativity and tech, focus on improving user experiences.</p>
-    </div>
-    <div class="col-md-3 career-box">
-      <h4>AI/ML Engineer</h4>
-      <p>Work with artificial intelligence algorithms and machine learning models to build smart systems.</p>
-    </div>
-    <div class="col-md-3 career-box">
-      <h4>Cybersecurity Analyst</h4>
-      <p>Protect digital infrastructure and data from cyber threats with skills in security protocols and tools.</p>
-    </div>
-    <div class="col-md-3 career-box">
-      <h4>DevOps Engineer</h4>
-      <p>Bridge development and operations, automate deployment, and manage infrastructure efficiently.</p>
-    </div>
-    <div class="col-md-3 career-box">
-      <h4>Product Manager</h4>
-      <p>Lead cross-functional teams, define product strategy, and ensure user satisfaction and business success.</p>
-    </div>
-  </div>
-</section>
-
-
-    <!-- News & Updates -->
     <section class="news-section">
       <h2>Latest Career News & Trends</h2>
       <div class="row">
@@ -502,38 +852,18 @@ Scholarship or entrance exam guidance</p>
       </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <!-- <section class="testimonials-section">
-      <h2>What Our Users Say</h2>
-      <div class="row">
-        <div class="col-md-6 testimonial-box">
-          <p>“This platform gave me clarity about my career. The suggestions were spot on!”</p>
-          <strong>- Aayushi, Final Year Student</strong>
-        </div>
-        <div class="col-md-6 testimonial-box">
-          <p>“A simple test gave me direction and confidence. Highly recommend!”</p>
-          <strong>- Raj, Engineering Graduate</strong>
-        </div>
-      </div> -->
-    </section>
-
-    <!-- Contact Section -->
     <section class="contact-section">
       <h2>Need Help?</h2>
       <p>Contact our career experts or chat with our AI assistant for personalized support.</p>
       <a href="{% url 'contact' %}" class="btn btn-pink">Contact Us</a>
     </section>
 
-    <!-- Footer -->
     <footer>
       &copy; 2025 Intelligent Career Guidance | Powered by AI
     </footer>
 
-    <!-- Bootstrap JS dependencies -->
-   <!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
   </body>
 </html>
