@@ -36,10 +36,35 @@
     .form-container .btn-custom:hover {
       background-color: #218838;
 
+    
+
+      
     }
   </style>
 </head>
 <body>
+
+<div style=" margin-top: 10px; margin-bottom: 20px; margin-left: 1340px;">
+  <a href="{% url 'home' %}"
+     style="
+       display: inline-block;
+       background-color: #007bff;
+       color: #fff;
+       padding: 12px 28px;
+       font-size: 16px;
+       font-weight: 600;
+       border-radius: 8px;
+       text-decoration: none;
+       box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+       transition: all 0.3s ease;
+     "
+     onmouseover="this.style.backgroundColor='#0056b3'"
+     onmouseout="this.style.backgroundColor='#007bff'"
+  >
+    Back to Home
+  </a>
+</div>
+
 
   <div class="form-container">
     <h4 class="text-center">

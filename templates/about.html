@@ -207,6 +207,11 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'profile' %}">Profile</a>
       </li>
+
+       <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+
       <li class="nav-item">
         <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
       </li>
@@ -220,42 +225,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {% block style %}
 <style>
 
   body {
-    background-color: black;
+    background-color: rgb(21, 19, 19);
   }
 
   /* Center the About heading */
@@ -458,13 +432,12 @@
   </div>
 </section>
 
-<section id="personalized-assessments" class="section">
+<!-- <section id="personalized-assessments" class="section">
   <h2>Personalized Assessments</h2>
 
 
   <section class="section" style="display: flex; gap: 30px; justify-content: center; max-width: 1200px; margin: 40px auto; flex-wrap: wrap;">
 
-    <!-- Logical Reasoning -->
     <div class="mission-block" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; box-shadow: none;">
       <h2>Logical Reasoning</h2>
       <p>Logical reasoning tests assess your ability to identify patterns, sequences, and relationships between concepts. These tests evaluate critical thinking skills.</p>
@@ -483,7 +456,7 @@
       </form>
     </div>
 
-    <!-- Numerical Reasoning -->
+
     <div class="vision-block" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; box-shadow: none;">
       <h2>Numerical Reasoning</h2>
       <p>Numerical reasoning tests assess your ability to work with numbers quickly and accurately. They evaluate problem-solving skills involving basic arithmetic and algebra.</p>
@@ -495,7 +468,6 @@
       </form>
     </div>
 
-    <!-- Verbal Reasoning -->
     <div class="mission-block" style="flex: 1; min-width: 300px; display: flex; flex-direction: column; box-shadow: none;">
       <h2>Verbal Reasoning</h2>
       <p>Verbal reasoning tests assess your ability to understand and analyze written information. They measure vocabulary, comprehension, and logical reasoning with words.</p>
@@ -511,7 +483,7 @@
         </select><br/><br/>
         <button type="submit" class="btn-submit">Submit Verbal Test</button>
       </form>
-    </div>
+    </div> -->
 
     <style>
       .btn-start {
@@ -619,6 +591,32 @@
   <p>Integration with online courses, certifications, and projects.</p> 
   <p>Regular progress tracking and adaptive learning recommendations.</p> 
 </section> 
+
+
+<section id="community-support" class="section">
+    <h2>Community and Support</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+        <div class="mission-block"> {# Reusing mission-block for consistent styling #}
+            <h2>Connect & Collaborate</h2>
+            <p>
+                Join our vibrant community to connect with peers, industry professionals, and mentors. Share insights, ask questions, and grow together.
+            </p>
+            <p>
+                Participate in forums, live Q&A sessions, and virtual meetups to expand your network and knowledge.
+            </p>
+        </div>
+
+        <div class="vision-block"> {# Reusing vision-block for consistent styling #}
+            <h2>Dedicated Support</h2>
+            <p>
+                Access a wealth of resources including resume templates, interview preparation guides, and career development articles.
+            </p>
+            <p>
+                Our support team is always here to assist you with any queries, ensuring a smooth and productive experience on CareerGuideAI.
+            </p>
+        </div>
+    </div>
+</section>
 
   <!-- <section id="community-support" class="section"> 
     <h2> Community and Support</h2> 
