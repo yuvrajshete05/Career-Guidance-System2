@@ -1,255 +1,394 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Chat Support</title>
-    {# Link to Font Awesome for the chat icon (for the bubble and button) #}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    {# NEW: Link to Google Fonts for 'Outfit' - a clean, modern font #}
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Chat Assistant</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
     <style>
-        /* General page styling */
-        body {
-            font-family: 'Outfit', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Clean, modern font */
+        :root {
+            /* NEW Dark Color Combination (Futuristic Blue/Purple & Teal Accent) */
+            --primary: #00BCD4; /* Bright Cyan/Teal accent */
+            --primary-dark: #0097A7; /* Darker Cyan/Teal for hover */
+            --text-color: #E3F2FD; /* Very light blue for main text */
+            --subtle-text: #90A4AE; /* Muted blue-gray for descriptions */
+            --background: linear-gradient(135deg, #1C2B3A, #121A22); /* Deep dark blue-grey gradient */
+            --card-bg: #273C50; /* Darker blue-grey for the main container */
+            --shadow: 0 15px 40px rgba(0, 0, 0, 0.6); /* Pronounced dark shadow */
+            --border-radius-large: 30px;
+            --border-radius-medium: 15px;
+            --bubble-bg-user: #425F78; /* Medium blue-gray for user message */
+            --bubble-bg-ai: #354F62; /* Slightly darker blue-gray for AI message */
+            --typing-dots-color: #607D8B; /* Medium blue-gray for dots */
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--background);
+            color: var(--text-color);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            /* Softer, more ethereal background */
-            background: radial-gradient(circle at top left, #e9f0f7, #f7f9fc, #e9f0f7);
-            color: #2c3e50; /* Darker, professional text color */
-            line-height: 1.6;
-            overflow: hidden; /* Prevent scrollbar if chat widget causes one on small screens */
+            padding: 20px;
+            overflow: hidden;
         }
 
         .container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-large);
+            padding: 40px;
             text-align: center;
-            background-color: #ffffff; /* Pure white card */
-            padding: 60px 40px; /* More generous padding */
-            border-radius: 24px; /* More deeply rounded corners for softness */
-            /* Softer, more diffuse shadow for a "floating" effect */
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.03);
-            max-width: 700px; /* Wider container */
-            margin: 20px;
-            box-sizing: border-box;
-            transform: translateY(0);
-            transition: transform 0.6s ease-out, box-shadow 0.6s ease-out;
-            animation: fadeInSubtle 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; /* Smoother, slightly bouncy fade-in */
+            max-width: 600px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.8s ease-out forwards;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        @keyframes fadeInSubtle {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
-            color: #007bff; /* A vibrant, modern blue for headings */
-            margin-bottom: 25px;
-            font-size: 3.2em; /* Large, impactful heading */
-            font-weight: 700; /* Extra bold */
-            letter-spacing: -0.8px;
-            line-height: 1.2;
-            text-shadow: 0 4px 8px rgba(0, 123, 255, 0.1); /* Subtle blue glow */
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            position: relative;
+            z-index: 2;
         }
 
-        p {
-            margin-bottom: 40px; /* More space below paragraph */
-            font-size: 1.25em; /* Slightly larger paragraph text */
-            color: #5d6d7e; /* Softer text color for body */
-            max-width: 550px;
+        p.description {
+            font-size: 1.1rem;
+            color: var(--subtle-text);
+            max-width: 480px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            z-index: 2;
+        }
+
+        /* Chat simulation styles */
+        .chat-simulation {
+            width: 100%;
+            margin-bottom: 30px;
+            position: relative;
+            padding: 20px 0;
+            z-index: 1;
+        }
+
+        .chat-bubble {
+            background: var(--bubble-bg-ai);
+            border-radius: var(--border-radius-medium);
+            padding: 12px 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-width: 80%;
+            word-wrap: break-word;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: relative;
+            animation: slideInBubble 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .chat-bubble.user {
+            background: var(--bubble-bg-user);
             margin-left: auto;
-            margin-right: auto;
-            font-weight: 300; /* Lighter font weight for body text */
+            animation-delay: 0.2s;
         }
 
-        /* --- Elite & Fluid Chat Bubble Button Styling --- */
+        .chat-bubble.ai {
+            margin-right: auto;
+        }
+
+        .chat-bubble p {
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .chat-bubble:nth-child(2) { animation-delay: 0.3s; }
+        .chat-bubble:nth-child(3) { animation-delay: 0.6s; }
+        .chat-bubble:nth-child(4) { animation-delay: 0.9s; }
+
+        @keyframes slideInBubble {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            animation-delay: 1.2s;
+        }
+
+        .typing-indicator span {
+            height: 10px;
+            width: 10px;
+            margin: 0 3px;
+            background-color: var(--typing-dots-color);
+            border-radius: 50%;
+            display: inline-block;
+            animation: bubbleJump 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0.1s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes bubbleJump {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-7px); }
+        }
+
+
+        /* Chat button styles */
         .chat-bubble-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: var(--border-radius-large);
+            width: auto;
+            height: 60px;
+            padding: 0 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 190px; /* Adjusted size */
-            height: 190px; /* Adjusted size for a perfect circle */
-            border-radius: 50%; /* Makes it circular */
-            /* A clean, solid background with a subtle inner shadow for depth */
-            background-color: #28a745; /* A classic, friendly green */
-            color: white;
-            font-size: 2.6em; /* Large icon size */
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6); /* Stronger shadow for accent */
+            animation: none;
             font-weight: 600;
-            text-decoration: none;
-            /* Multi-layered shadow for depth and subtle glow */
-            box-shadow: 
-                0 6px 12px rgba(40, 167, 69, 0.3), /* Main shadow */
-                0 0 0 0 rgba(40, 167, 69, 0.5); /* For pulse effect */
-            cursor: pointer;
-            /* More fluid, spring-like transition */
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; /* For the notification dot/pulse */
-            border: none; /* No border for a cleaner look */
-            overflow: hidden; /* Ensures pulse stays within bounds */
-            animation: softPulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1); /* Continuous, gentle pulse */
+            margin-top: 20px;
         }
 
         .chat-bubble-btn:hover {
-            transform: translateY(-7px) scale(1.05); /* Slight lift and scale */
-            background-color: #218838; /* Darker green on hover */
-            box-shadow: 
-                0 10px 20px rgba(40, 167, 69, 0.4), /* Enhanced main shadow */
-                0 0 0 0 rgba(40, 167, 69, 0); /* Reset pulse on hover */
+            background: var(--primary-dark);
+            transform: translateY(-3px);
         }
 
         .chat-bubble-btn i {
-            animation: swingIcon 2s infinite ease-in-out; /* Gentle swing animation */
-            position: relative;
-            z-index: 2; /* Ensure icon is above pulse */
+            margin-right: 15px;
         }
 
-        @keyframes swingIcon {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
-        }
-
-        /* Soft pulse for the button */
-        @keyframes softPulse {
-            0% { box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3), 0 0 0 0 rgba(40, 167, 69, 0.5); }
-            70% { box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3), 0 0 0 15px rgba(40, 167, 69, 0); }
-            100% { box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3), 0 0 0 0 rgba(40, 167, 69, 0.5); }
-        }
-
-        /* Go back to Home link styling */
-        .back-home-link {
+        a.back-home-link {
             display: inline-block;
-            margin-top: 50px; /* More space from the button */
-            color: #007bff; /* Consistent blue link */
+            margin-top: 30px;
+            color: var(--subtle-text);
+            font-weight: 500;
             text-decoration: none;
-            font-size: 1.1em;
-            font-weight: 500; /* Slightly lighter */
-            transition: all 0.3s ease;
-            position: relative;
-            padding-bottom: 2px; /* For underline effect */
+            font-size: 1rem;
+            transition: color 0.3s ease;
         }
 
-        .back-home-link::after {
-            content: '';
-            position: absolute;
-            left: 50%; /* Start from center */
-            transform: translateX(-50%); /* Center the underline */
-            bottom: 0;
-            width: 0;
-            height: 1.5px; /* Thinner underline */
-            background-color: #007bff;
-            transition: width 0.3s ease;
+        a.back-home-link:hover {
+            color: var(--text-color);
+            text-decoration: underline;
         }
 
-        .back-home-link:hover {
-            color: #0056b3;
-            transform: translateY(-2px); /* Slight lift */
-        }
-
-        .back-home-link:hover::after {
-            width: 100%; /* Expand underline */
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .container {
-                padding: 45px 30px;
-                border-radius: 20px;
-                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
-            }
+        @media (max-width: 600px) {
             h1 {
-                font-size: 2.6em;
-                margin-bottom: 20px;
+                font-size: 2rem;
             }
-            p {
-                font-size: 1.1em;
-                margin-bottom: 35px;
-            }
-            .chat-bubble-btn {
-                width: 160px;
-                height: 160px;
-                font-size: 2.2em;
-            }
-        }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 35px 25px;
-                margin: 15px;
+            p.description {
+                font-size: 0.95rem;
             }
-            h1 {
-                font-size: 2.1em;
-                margin-bottom: 15px;
-            }
-            p {
-                font-size: 0.95em;
-                margin-bottom: 25px;
-            }
+
             .chat-bubble-btn {
-                width: 130px;
-                height: 130px;
-                font-size: 1.9em;
+                height: 50px;
+                font-size: 1.2rem;
+                padding: 0 30px;
             }
-            .back-home-link {
-                margin-top: 30px;
-                font-size: 1em;
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .chat-bubble {
+                font-size: 0.85rem;
+                padding: 10px 15px;
             }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>Need Help?</h1>
-        <p>Our intelligent AI assistant is ready to provide instant support and answer your questions. Click below to start a chat!</p>
-
-        <a href="#" id="liveChatButton" class="chat-bubble-btn">
-            <i class="fas fa-comments"></i>
-        </a>
-        <p style="margin-top: 40px; font-size: 1.1em; color: #7f8c8d;">
-            <a href="/" class="back-home-link">Go back to Home Page</a>
+        <h1>CareerPath AI</h1>
+        <p class="description">
+            Your smart AI is here to help! See how it works, then start a conversation in real-time.
         </p>
+
+        <div class="chat-simulation">
+            <div class="chat-bubble ai">
+                <p>Hello! How can I assist you today?</p>
+            </div>
+            <div class="chat-bubble user">
+                <p>Hi there! I have a question about career guidance.</p>
+            </div>
+            <div class="chat-bubble ai">
+                <p>Great! I can help with that. What specifically would you like to know?</p>
+            </div>
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+     <a href="/startchat/" class="chat-bubble-btn" title="Start Chat">
+  <i class="fas fa-robot"></i> Start Chat
+</a>
+
+        <a href="{% url 'home' %}" class="back-home-link">← Back to Home</a>
     </div>
 
     <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    // --- IMPORTANT: REPLACE 'https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID' with your ACTUAL Tawk.to URL! ---
-    s1.src='https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID'; 
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID'; // Replace with your Tawk.to script
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
     </script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const liveChatButton = document.getElementById('liveChatButton');
-
-            if (liveChatButton) {
-                liveChatButton.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent the default anchor link behavior (page jump)
-
-                    // Check if Tawk_API is loaded and available
-                    if (typeof Tawk_API !== 'undefined' && Tawk_API.toggle) {
-                        Tawk_API.toggle(); // This is the Tawk.to function to open/close the chat widget
-                        console.log("Tawk.to chat widget toggled (opened).");
-                        // As configured in Tawk.to dashboard, this should initiate the AI-first interaction.
-                    } else {
-                        console.error("Tawk.to API not loaded or 'toggle' function not available. Make sure you've pasted the Tawk.to embed code correctly and it has loaded.");
-                        alert("Live chat service not ready. Please try again later. (Check console for errors)");
-                    }
-                });
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('liveChatButton');
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (typeof Tawk_API !== 'undefined' && Tawk_API.toggle) {
+                    Tawk_API.toggle();
+                } else {
+                    alert("Live chat not ready. Please try again shortly.");
+                }
+            });
         });
     </script>
-
 </body>
-</html> -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+original code  -->
+
+<!-- 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -288,7 +427,7 @@
             <input id="message-input" type="text" placeholder="Type your message here..."/>
             <input id="chat-submit" type="button" value="Send"/>
         </div>
-        <a href="/" class="back-link">Go back to Home</a>
+        <a href="home.html" class="back-link">Go back to Home</a>
     </div>
 
     <script>
@@ -360,4 +499,4 @@
         };
     </script>
 </body>
-</html>
+</html> -->

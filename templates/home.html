@@ -852,6 +852,12 @@
 
 
 
+
+
+
+
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -1614,6 +1620,15 @@
         <h2>Knowledge Assessments</h2>
         <p class="mb-4">Test your skills with dynamic, AI-generated quizzes in various tech fields, or challenge yourself with a coding problem.</p>
         <div class="assessment-button-group slide-up">
+
+
+            <!-- <a href="{% url 'generate_test' test_type='aptitude' %}" class="assessment-button bg-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                <path d="M11.25 4.507A4.5 4.5 0 0 0 9 9.75v.75H6.75a.75.75 0 0 0-.75.75v10.5c0 .414.336.75.75.75h9c.414 0 .75-.336.75-.75V11.25a.75.75 0 0 0-.75-.75h-2.25V9.75a4.5 4.5 0 0 0-2.25-5.243ZM12 3a6 6 0 0 1 6 6v.75h.75a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9A2.25 2.25 0 0 1 3 22.5V13.5A2.25 2.25 0 0 1 5.25 11.25H6V9.75a6 6 0 0 1 6-6Z" />
+            </svg>
+            Aptitude Test
+            </a> -->
+            
             <a href="{% url 'generate_test' test_type='computer_science' %}" class="assessment-button bg-purple-600">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                     <path d="M11.25 4.507A4.5 4.5 0 0 0 9 9.75v.75H6.75a.75.75 0 0 0-.75.75v10.5c0 .414.336.75.75.75h9c.414 0 .75-.336.75-.75V11.25a.75.75 0 0 0-.75-.75h-2.25V9.75a4.5 4.5 0 0 0-2.25-5.243ZM12 3a6 6 0 0 1 6 6v.75h.75a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9A2.25 2.25 0 0 1 3 22.5V13.5A2.25 2.25 0 0 1 5.25 11.25H6V9.75a6 6 0 0 1 6-6Z" />
@@ -1714,6 +1729,185 @@
           </a>
       </div>
     </section>
+
+    
+
+<hr style="border: #2d3748 solid 2px"> 
+
+    <section class="team-section">
+    <style>
+        /*
+         * CSS for .team-section and its children.
+         * NOTE: This assumes that CSS variables like --primary, --card-bg, --text-color,
+         * --subtle-text, --background, --border-radius-medium, etc., are defined in a
+         * :root selector elsewhere in your HTML (e.g., in the <head>).
+         * If they are not, you will need to replace them with specific color codes or define :root.
+         */
+        .team-section {
+            padding: 80px 20px;
+            background: var(--background); /* Uses the body's background for consistency */
+            text-align: center;
+            color: var(--text-color);
+            width: 100%;
+        }
+
+        .team-section h2 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--primary); /* Accent color for the section heading */
+            font-weight: 700;
+        }
+
+        .team-section .section-description {
+            font-size: 1.2rem;
+            color: var(--subtle-text);
+            max-width: 700px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+        }
+
+        .team-members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .team-member-card {
+            background: var(--card-bg); /* Uses the card background variable */
+            border-radius: var(--border-radius-medium);
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-member-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.55);
+        }
+
+        /* Removed .team-member-photo specific styling */
+
+        .team-member-card h3 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .team-member-card .team-member-role {
+            font-size: 1.1rem;
+            color: var(--primary); /* Role text in accent color */
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .team-member-card .team-member-bio {
+            font-size: 0.95rem;
+            color: var(--subtle-text);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Allows bio to take available space */
+        }
+
+        .team-member-card .social-links {
+            margin-top: auto; /* Pushes social links to bottom */
+            display: flex;
+            gap: 15px;
+        }
+
+        .team-member-card .social-links a {
+            color: var(--subtle-text);
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .team-member-card .social-links a:hover {
+            color: var(--primary); /* Accent color on hover */
+            transform: scale(1.1);
+        }
+
+        /* Responsive adjustments for smaller screens (only for team section) */
+        @media (max-width: 768px) {
+            .team-section h2 {
+                font-size: 2.5rem;
+            }
+            .team-section .section-description {
+                font-size: 1rem;
+                margin-bottom: 40px;
+            }
+            .team-member-card {
+                padding: 25px;
+            }
+            /* Removed .team-member-photo responsive styling */
+            .team-member-card h3 {
+                font-size: 1.6rem;
+            }
+            .team-member-card .team-member-role {
+                font-size: 1rem;
+            }
+            .team-member-card .team-member-bio {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-section {
+                padding: 60px 15px;
+            }
+            .team-members-grid {
+                grid-template-columns: 1fr; /* Single column on very small screens */
+            }
+        }
+    </style>
+
+    <h2>Meet Our Team</h2>
+    <p class="section-description">
+        Behind every great project is a passionate team. Get to know the minds driving innovation.
+    </p>
+
+    <div class="team-members-grid">
+
+        <div class="team-member-card">
+            <h3>Yuvraj Shete</h3>
+            <p class="team-member-role">Founder & CEO</p>
+            <p class="team-member-bio">Visionary leader with a passion for transforming ideas into impactful solutions through AI.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/yuvrajshete05/" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/yuvrajshete05" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+
+        <div class="team-member-card">
+            <h3>Toshavi Marwade</h3>
+            <p class="team-member-role">Co-Founder & CTO</p>
+            <p class="team-member-bio">Bringing cutting-edge technical expertise and a knack for elegant problem-solving.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/toshavi-marwade-5b6429266/" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+
+        <!-- <div class="team-member-card">
+            <h3>Vic</h3>
+            <p class="team-member-role">Lead Web Developer</p>
+            <p class="team-member-bio">Dedicated to crafting robust, user-friendly web applications with clean code.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/yuvrajshete05" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/yuvrajshete05" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+            </div>
+        </div> -->
+
+    </div>
+</section>
+
+
 
  <hr style="border: #2d3748 solid 2px">   
 

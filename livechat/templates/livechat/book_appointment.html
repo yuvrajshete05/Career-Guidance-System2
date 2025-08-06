@@ -1,0 +1,53 @@
+{% extends "app1/base.html" %}
+{% block title %}Book Appointment{% endblock %}
+{% block content %}
+<h2>Book an Appointment with a Counselor</h2>
+
+<form method="get" id="counselor-filter-form">
+    <label for="id_counselor_filter">Filter by Counselor:</label>
+    <select name="counselor" id="id_counselor_filter">
+        <option value="">-- All Counselors --</option>
+        {% for counselor_profile in counselors %}
+            <option value="{{ counselor_profile.user.id }}" {% if request.GET.counselor == counselor_profile.user.id|stringformat:"s" %}selected{% endif %}>
+                {{ counselor_profile.user.username }}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+</form>
+<br>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="id_slot">Available Slots:</label>
+    <select name="{{ form.slot.name }}" id="{{ form.slot.id_for_label }}">
+        {% for slot_option in form.slot.field.queryset %}
+            <option value="{{ slot_option.id }}">
+                {{ slot_option.counselor.username }} -
+                {{ slot_option.start_time|date:"D, d M Y H:i" }} to
+                {{ slot_option.end_time|date:"H:i" }}
+            </option>
+        {% empty %}
+            <option value="" disabled selected>No available slots</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <button type="submit" {% if not form.slot.field.queryset %}disabled{% endif %}>Book Selected Slot</button>
+</form>
+
+<hr>
+<h3>All Available Slots:</h3>
+{% if all_available_slots %}
+    <ul>
+        {% for slot in all_available_slots %}
+            <li>
+                {{ slot.counselor.username }}:
+                {{ slot.start_time|date:"D, d M Y H:i" }} -
+                {{ slot.end_time|date:"H:i" }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No slots are currently available for booking.</p>
+{% endif %}
+{% endblock %}

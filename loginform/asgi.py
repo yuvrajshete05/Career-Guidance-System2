@@ -28,3 +28,27 @@ application = ProtocolTypeRouter({
         )
     ),
 })
+
+
+
+# loginform/asgi.py
+import os
+from django.core.asgi import get_asgi_application
+
+# Import Django Channels components
+from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.auth import AuthMiddlewareStack
+
+# Import your livechat's routing
+import livechat.routing
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'loginform.settings') # Ensure 'loginform' matches your project name
+
+application = ProtocolTypeRouter({
+    "http": get_asgi_application(), # Handles standard HTTP requests
+    "websocket": AuthMiddlewareStack( # Handles WebSocket requests
+        URLRouter(
+            livechat.routing.websocket_urlpatterns # Point to your livechat's WebSocket URLs
+        )
+    ),
+})

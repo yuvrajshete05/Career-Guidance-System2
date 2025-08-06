@@ -16,21 +16,13 @@ from django.urls import path
 from .views import IndustryTrendsAPIView, news_feed_page # Import the new API view and page view
 
 urlpatterns = [
-    # ... (your existing URL patterns for app1, if any, go here) ...
 
-    # New URL for fetching trends via API
     path('api/trends/', IndustryTrendsAPIView.as_view(), name='api_industry_trends'),
-
-    # New URL to render the HTML page for the trends feed
     path('trends/', news_feed_page, name='industry_trends_page'),
 ]
 
-
-# app1/urls.py - APPLICATION-LEVEL URL CONFIGURATION
-
 from django.urls import path
-# Import ALL your view functions that are defined in app1/views.py
-# Make sure every function/class you use in urlpatterns is listed here.
+
 from .views import (
     SignupPage,
     login_view,

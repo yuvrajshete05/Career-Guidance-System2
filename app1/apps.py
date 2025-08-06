@@ -6,9 +6,9 @@ class App1Config(AppConfig):
     name = 'app1'
 
 
-from django.apps import AppConfig
+# from django.apps import AppConfig
 
 
-class CareerConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'career'
+# class CareerConfig(AppConfig):
+#     default_auto_field = 'django.db.models.BigAutoField'
+#     name = 'career'

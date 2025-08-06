@@ -326,8 +326,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 # ------------------------------------------------------------------------------
-# Gemini API Key
+# Gemini API Keys
 # ------------------------------------------------------------------------------
 GEMINI_API_KEY = "AIzaSyAWKyx5YW-bbgUkwi6rjohVvq3lzTc8k-w"
-
-

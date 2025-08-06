@@ -131,8 +131,14 @@ urlpatterns = [
 
 
     path('career_result/', views.career_result_view, name='career_result'),
+    # path('chatbot/', include('chatbot.urls')),
+    # path('livechat/', include('livechat.urls')),
+
+    path('startchat/', views.ai_career_assistant, name='start_chat'),
 
 
+    # path('job-listings/', views.job_listings, name='job_listings'),
+    
 
 
 ]

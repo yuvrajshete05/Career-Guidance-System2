@@ -1,0 +1,64 @@
+{% extends "app1/base.html" %}
+{% block title %}Live Chat Room{% endblock %}
+{% block content %}
+<style>
+    /* Add similar CSS for chat layout as in AI counselor */
+    #live-chat-container { /* ... styling ... */ }
+    #live-chat-messages { /* ... styling ... */ }
+    .live-user-message { background-color: #d1ecf1; align-self: flex-end; } /* Example different color */
+    .live-other-message { background-color: #f8d7da; align-self: flex-start; }
+</style>
+
+<h2>Live Chat with a Counselor</h2>
+<p>You are chatting with: {{ counselor_name }}</p>
+<div id="live-chat-container">
+    <div id="live-chat-messages">
+        </div>
+    <div id="live-chat-input-area">
+        <input type="text" id="live-user-input" placeholder="Type your message...">
+        <button id="live-send-button">Send</button>
+    </div>
+</div>
+
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent); // Pass context
+    const userId = "{{ request.user.username }}"; // Get current user's username
+
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/livechat/' + roomName + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const message = data.message;
+        const sender = data.sender;
+        const msgElement = document.createElement('div');
+        msgElement.classList.add('message-bubble'); // Common style
+        msgElement.classList.add(sender === userId ? 'live-user-message' : 'live-other-message');
+        msgElement.textContent = `${sender}: ${message}`;
+        document.getElementById('live-chat-messages').appendChild(msgElement);
+        document.getElementById('live-chat-messages').scrollTop = document.getElementById('live-chat-messages').scrollHeight;
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Live chat socket closed unexpectedly');
+        alert('Your live chat has disconnected. Please refresh or try again.');
+    };
+
+    document.getElementById('live-send-button').addEventListener('click', function() {
+        const messageInput = document.getElementById('live-user-input');
+        const message = messageInput.value;
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInput.value = '';
+    });
+
+    document.getElementById('live-user-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('live-send-button').click();
+        }
+    });
+</script>
+<script id="room-name" type="application/json">"{{ room_name }}"</script> {# Hidden script tag to pass context #}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "app1/base.html" %}
+{% block title %}Counselor Dashboard{% endblock %}
+{% block content %}
+<h2>Counselor Dashboard</h2>
+
+<h3>Active Sessions</h3>
+{% if active_sessions %}
+    <ul>
+        {% for session in active_sessions %}
+            <li>User: {{ session.user.username }} - <a href="{% url 'livechat:chat_room' session.id %}">Join Chat</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No active chat sessions.</p>
+{% endif %}
+
+<h3>Pending Chat Requests</h3>
+{% if pending_sessions %}
+    <ul>
+        {% for session in pending_sessions %}
+            <li>User: {{ session.user.username }} - Request Time: {{ session.start_time|date:"DATETIME_FORMAT" }}
+                <form method="post" action="{% url 'livechat:counselor_join_session' session.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Join Session</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No pending chat requests.</p>
+{% endif %}
+
+{# You might add a toggle for counselor availability here #}
+{% endblock %}
