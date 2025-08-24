@@ -1688,14 +1688,243 @@
             <p>Even with AI assistance, a final human review is crucial. Check for any typos, grammatical errors, or inconsistencies. A flawless resume reflects attention to detail and professionalism. Consider using online tools for a final check.</p>
         </div>
     </div>
-
-    <div class="text-center mt-12">
+ <div class="text-center mt-12">
     <a href="{% url 'resume_builder' %}" 
        class="btn btn-live-chat">
         Build My Resume
     </a>
-</div>
 </section>
+
+
+
+
+    
+
+<hr style="border: #2d3748 solid 2px"> 
+
+<!-- Company-Wise Test Section -->
+<!-- Company-Wise Test Section -->
+<section class="test-prep-section">
+  <div class="test-prep-container">
+    <div class="header">
+      <h2 class="section-title">🎯 Company-Wise Mock Tests</h2>
+      <p class="tagline">Prepare smarter with real-world practice tests from top companies.</p>
+    </div>
+
+    <div class="content">
+      <p class="description">
+        Boost your career with <strong>real-world mock tests</strong> designed for leading companies.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-card">
+          <span class="icon">✅</span>
+          <div>
+            <h4>Aptitude Tests</h4>
+            <p>Logical reasoning, quantitative, and verbal practice sets</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="icon">💻</span>
+          <div>
+            <h4>Coding Challenges</h4>
+            <p>DSA, problem-solving, and competitive coding practice</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <span class="icon">🎤</span>
+          <div>
+            <h4>Interview Practice</h4>
+            <p>Real company interview questions with AI feedback</p>
+          </div>
+        </div>
+        <!-- New HR Interview Round card -->
+        <div class="feature-card">
+          <span class="icon">🤝</span>
+          <div>
+            <h4>HR Interview Round</h4>
+            <p>Behavioral questions, common HR queries, and resume-based questions</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="company-count">
+        Includes Infosys, TCS, Wipro, Accenture, IBM, Google, Microsoft, and many more.
+      </p>
+
+      <a href="{% url 'company_tests_page' %}" class="cta-button">
+        Start Practicing →
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Use CSS variables for the dark theme */
+  :root {
+    --bg-primary: #1a202c;
+    --bg-secondary: #2d3748;
+    --card-bg: #273142;
+    --text-primary: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --border-color: #4a5568;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --card-shadow-color: rgba(0, 0, 0, 0.3);
+    --btn-pink-shadow: rgba(255, 92, 157, 0.4);
+    --btn-pink-hover-shadow: rgba(255, 92, 157, 0.6);
+  }
+
+  .test-prep-section {
+    background-color: var(--bg-secondary);
+    padding: 60px 20px;
+    border-radius: 20px;
+    max-width: 1300px;
+    margin: 50px auto;
+    box-shadow: 0 6px 25px var(--card-shadow-color);
+    transition: 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .test-prep-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .test-prep-section:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  .tagline {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+  }
+
+  .feature-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    /* Removed flex-wrap to keep cards on a single line */
+    margin-bottom: 30px;
+  }
+
+  .feature-card {
+    flex: 1;
+    /* Min-width adjusted to a smaller value to help prevent overflow on small screens */
+    min-width: 200px;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    transition: 0.3s ease;
+  }
+
+  .feature-card:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-5px);
+  }
+
+  .feature-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .icon {
+    font-size: 1.6rem;
+  }
+
+  .company-count {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 14px 34px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(45deg, #ff5c9d, #ff3b85);
+    border-radius: 40px;
+    box-shadow: 0 6px 20px var(--btn-pink-shadow);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background: linear-gradient(45deg, #ff3b85, #ff1a77);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    .feature-list {
+      /* Keep cards on a single row even on mobile */
+      flex-direction: row;
+    }
+    .section-title {
+      font-size: 1.8rem;
+    }
+    .tagline {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const section = document.querySelector(".test-prep-section");
+    if (section) {
+      observer.observe(section);
+    }
+  });
+</script>
+
+
+
+
+
+
 
     <section class="news-section fade-in">
       <h2>Latest Career News & Trends</h2>
@@ -1730,19 +1959,14 @@
       </div>
     </section>
 
-    
 
-<hr style="border: #2d3748 solid 2px"> 
+ <hr style="border: #2d3748 solid 2px">
+<!-- ======================================================================================================================================
+     -->
 
-    <section class="team-section">
+<section class="team-section">
     <style>
-        /*
-         * CSS for .team-section and its children.
-         * NOTE: This assumes that CSS variables like --primary, --card-bg, --text-color,
-         * --subtle-text, --background, --border-radius-medium, etc., are defined in a
-         * :root selector elsewhere in your HTML (e.g., in the <head>).
-         * If they are not, you will need to replace them with specific color codes or define :root.
-         */
+       
         .team-section {
             padding: 80px 20px;
             background: var(--background); /* Uses the body's background for consistency */
@@ -1893,16 +2117,6 @@
                 <a href="#" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
             </div>
         </div>
-
-        <!-- <div class="team-member-card">
-            <h3>Vic</h3>
-            <p class="team-member-role">Lead Web Developer</p>
-            <p class="team-member-bio">Dedicated to crafting robust, user-friendly web applications with clean code.</p>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/yuvrajshete05" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/yuvrajshete05" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-            </div>
-        </div> -->
 
     </div>
 </section>

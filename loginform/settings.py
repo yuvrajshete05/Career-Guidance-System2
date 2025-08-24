@@ -201,9 +201,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app1',
     'loginform',
-    'channels' # This line is correct and should be present
+    'channels', # This line is correct and should be present
     # Removed 'career' because the app folder doesn't exist
     # 'career',
+    'djangochannelsrestframework',
+    
 ]
 
 MIDDLEWARE = [
@@ -329,3 +331,8 @@ LOGIN_REDIRECT_URL = '/'
 # Gemini API Keys
 # ------------------------------------------------------------------------------
 GEMINI_API_KEY = "AIzaSyAWKyx5YW-bbgUkwi6rjohVvq3lzTc8k-w"
+# settings.py
+
+# ... other settings
+
+JOB_API_KEY = "333797cb571b25e8fb0ac52eecb757f0"

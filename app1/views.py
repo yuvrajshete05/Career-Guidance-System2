@@ -1,3 +1,503 @@
+# from django.shortcuts import render, redirect
+# from django.http import HttpResponse, JsonResponse
+# from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth.models import User # Corrected import for User
+# from django.contrib import messages # Corrected import for messages
+# from django.db.models import Q # For complex queries in search_view
+# from django.views.decorators.csrf import csrf_exempt # Corrected import for csrf_exempt
+# from django.conf import settings
+
+# # Import external libraries
+# import wikipedia # Make sure you have 'wikipedia' library installed (pip install wikipedia)
+# import joblib    # Make sure you have 'scikit-learn' or 'joblib' installed (pip install scikit-learn)
+# import re
+# import os
+
+# # Import Django settings
+# from django.conf import settings # Import settings to access GEMINI_API_KEY
+
+# # Import for Gemini API
+# import google.generativeai as genai # Make sure you have 'google-generativeai' installed (pip install google-generativeai)
+
+# # --- MODELS IMPORT (UNCOMMENT AND VERIFY) ---
+# # You had these models imported, ensure they exist in app1/models.py
+# # If they are correctly defined in app1/models.py, uncomment these lines.
+# # from .models import Career, Skill, Course, Contact
+# # If your Contact model is in loginform/models.py, import it like:
+# # from loginform.models import Contact
+
+
+# # --- Authentication Views ---
+
+# def SignupPage(request):
+#     if request.method == 'POST':
+#         uname = request.POST.get('username')
+#         email = request.POST.get('email')
+#         pass1 = request.POST.get('password1')
+#         pass2 = request.POST.get('password2')
+
+#         if pass1 != pass2:
+#             messages.error(request, "Passwords do not match.")
+#             return render(request, 'signup.html', {'message': "Passwords do not match."})
+#         if User.objects.filter(username=uname).exists():
+#             messages.error(request, "Username already exists.")
+#             return render(request, 'signup.html', {'message': "Username already exists."})
+#         if User.objects.filter(email=email).exists():
+#             messages.error(request, "Email already registered.")
+#             return render(request, 'signup.html', {'message': "Email already registered."})
+
+#         user = User.objects.create_user(username=uname, email=email, password=pass1)
+#         user.save()
+#         messages.success(request, "Account created successfully! Please login.")
+#         return redirect('login')
+
+#     return render(request, 'signup.html')
+
+# def login_view(request):
+#     if request.method == "POST":
+#         username = request.POST.get('username')
+#         password = request.POST.get('pass') # Note: your field name is 'pass' not 'password'
+
+#         user = authenticate(request, username=username, password=password)
+
+#         if user is not None:
+#             login(request, user)
+#             messages.success(request, f"Welcome, {username}!")
+#             return redirect('home')
+#         else:
+#             messages.error(request, "Invalid username or password.")
+
+#     return render(request, 'login.html')
+
+# def LogoutPage(request):
+#     logout(request)
+#     messages.info(request, "You have been logged out.")
+#     return redirect('login')
+
+
+# # --- Core Application Views ---
+
+# def HomePage(request):
+#     return render(request, 'home.html')
+
+# def career_form_view(request):
+#     """
+#     Renders the career recommendation form (career_form2.html).
+#     This is what opens when 'Get Started!' is clicked.
+#     """
+#     return render(request, 'career_form2.html')
+
+# @csrf_exempt # Use this decorator for testing. FOR PRODUCTION: Ensure {% csrf_token %} is in your form and remove this decorator!
+# def career_recommendation(request):
+#     if request.method == 'POST':
+#         full_name = request.POST.get('name')
+#         gender = request.POST.get('gender')
+#         age = request.POST.get('age')
+#         ug_course = request.POST.get('course')
+#         ug_specialization = request.POST.get('ug_specialization')
+#         cgpa = request.POST.get('cgpa')
+#         interests = request.POST.get('interests')
+#         skills = request.POST.get('skills')
+#         certifications = request.POST.get('certifications')
+#         is_working = request.POST.get('working')
+#         current_job_title = request.POST.get('job_title')
+#         masters_field = request.POST.get('masters_field', 'N/A')
+
+#         prompt = (
+#             f"Student Details:\n"
+#             f"Name: {full_name}\n"
+#             f"Gender: {gender}\n"
+#             f"Age: {age}\n"
+#             f"Undergraduate: {ug_course} in {ug_specialization}\n"
+#             f"CGPA: {cgpa}\n"
+#             f"Interests: {interests}\n"
+#             f"Skills: {skills}\n"
+#             f"Certifications: {certifications}\n"
+#             f"Currently Working: {is_working}\n"
+#             f"Job Title: {current_job_title}\n"
+#             f"Master’s Degree Field: {masters_field}\n\n"
+#             f"Based on these details, suggest the top 3 most suitable career paths and explain why each fits the candidate."
+#         )
+
+#         try:
+#             if settings.DEBUG:
+#                 print(f"DEBUG: Attempting to use FULL GEMINI_API_KEY: {settings.GEMINI_API_KEY}")
+#             else:
+#                 # Truncated print for non-debug mode (though not strictly needed in this simplified example)
+#                 print(f"DEBUG: Attempting to use GEMINI_API_KEY: {settings.GEMINI_API_KEY[:5]}...{settings.GEMINI_API_KEY[-5:]}")
+
+#             genai.configure(api_key=settings.GEMINI_API_KEY)
+#             model = genai.GenerativeModel("gemini-1.5-flash")
+#             response = model.generate_content(prompt)
+
+#             if response.text:
+#                 ai_reply = response.text.strip()
+#                 return render(request, 'career_result2.html', {'recommendation': ai_reply})
+#             else:
+#                 messages.error(request, 'No text content in AI response. It might have been blocked by safety settings or be an empty response.')
+#                 return render(request, 'career_form2.html', {'error_message': 'Could not get a recommendation. Please try again.'})
+
+#         except Exception as e:
+#             print(f"Error calling Gemini API: {e}")
+#             messages.error(request, f"Failed to get recommendation: {str(e)}")
+#             return render(request, 'career_form2.html', {'error_message': f"Failed to get recommendation: {str(e)}"})
+
+#     return redirect('career_form')
+
+
+# # --- Other Application Views ---
+
+# def about_view(request):
+#     return render(request, 'about.html')
+
+# def assessment_view(request):
+#     return render(request, 'assessment.html')
+
+# def profile_view(request):
+#     return render(request, 'profile.html')
+
+# def contact_view(request):
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         email = request.POST.get('email')
+#         message = request.POST.get('message')
+#         # Uncomment and ensure Contact model is correctly imported and defined.
+#         # from .models import Contact
+#         # Contact.objects.create(name=name, email=email, message=message)
+#         messages.success(request, "Your message has been sent!")
+#         # CHANGE: Render the contact.html page itself instead of redirecting
+#         return render(request, 'contact.html') # Render contact.html with the message
+
+#     return render(request, 'contact.html')
+
+# def search_view(request):
+#     query = request.GET.get('query', '').strip()
+
+#     # Uncomment and ensure Career, Skill, Course models are correctly imported and defined.
+#     # from .models import Career, Skill, Course
+#     # careers = Career.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
+#     # skills = Skill.objects.filter(Q(name__icontains=query) | Q(detail__icontains=query))
+#     # courses = Course.objects.filter(Q(name__icontains=query) | Q(overview__icontains=query))
+
+#     # Mock data if models are not yet defined (remove this if you uncomment models above)
+#     careers = []
+#     skills = []
+#     courses = []
+#     if query:
+#         if "data scientist" in query.lower():
+#             careers.append({'title': 'Data Scientist', 'description': 'Analyzes large datasets.'})
+#         if "python" in query.lower():
+#             skills.append({'name': 'Python', 'detail': 'Programming language.'})
+#         if "machine learning" in query.lower():
+#             courses.append({'name': 'Machine Learning Fundamentals', 'overview': 'Intro to ML algorithms.'})
+
+
+#     wiki_summary = None
+#     wiki_url = None
+
+#     if query:
+#         try:
+#             wiki_summary = wikipedia.summary(query, sentences=3, auto_suggest=True, redirect=True)
+#             wiki_page = wikipedia.page(query)
+#             wiki_url = wiki_page.url
+#         except wikipedia.exceptions.DisambiguationError as e:
+#             wiki_summary = f"Your search term is ambiguous. Possible options: {', '.join(e.options[:5])}"
+#         except wikipedia.exceptions.PageError:
+#             wiki_summary = "No Wikipedia page found for your query."
+#         except Exception as e:
+#             wiki_summary = f"Error fetching Wikipedia data: {e}"
+
+#     context = {
+#         'query': query,
+#         'careers': careers,
+#         'skills': skills,
+#         'courses': courses,
+#         'wiki_summary': wiki_summary,
+#         'wiki_url': wiki_url,
+#     }
+#     return render(request, 'search_results.html', context)
+
+# def thank_you(request):
+#     return render(request, 'thankyou.html')
+
+# # Placeholder for my_ai_view if you intend to use it separately
+# # from .utils import get_gemini_key
+# # def my_ai_view(request):
+# #     key = get_gemini_key()
+# #     # Use it to call Gemini API securely
+# #     return HttpResponse(f"Gemini API key loaded: {key[:5]}...") # Just for testing key loading
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from django.shortcuts import render, redirect
+# from django.http import HttpResponse, JsonResponse
+# from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth.models import User
+# from django.contrib import messages
+# from django.db.models import Q
+# from django.views.decorators.csrf import csrf_exempt
+
+# # You had these models imported, ensure they exist in app1/models.py
+# # If they are correctly defined in app1/models.py, uncomment these lines.
+# # from .models import Career, Skill, Course, Contact
+# # If your Contact model is in loginform/models.py, import it like:
+# # from loginform.models import Contact
+
+
+# import wikipedia
+# import joblib
+# import re
+# import os
+# from django.conf import settings
+
+# import google.generativeai as genai
+
+
+# # --- Authentication Views ---
+
+# def SignupPage(request):
+#     if request.method == 'POST':
+#         uname = request.POST.get('username')
+#         email = request.POST.get('email')
+#         pass1 = request.POST.get('password1')
+#         pass2 = request.POST.get('password2')
+
+#         if pass1 != pass2:
+#             messages.error(request, "Passwords do not match.")
+#             return render(request, 'signup.html', {'message': "Passwords do not match."})
+#         if User.objects.filter(username=uname).exists():
+#             messages.error(request, "Username already exists.")
+#             return render(request, 'signup.html', {'message': "Username already exists."})
+#         if User.objects.filter(email=email).exists():
+#             messages.error(request, "Email already registered.")
+#             return render(request, 'signup.html', {'message': "Email already registered."})
+
+#         user = User.objects.create_user(username=uname, email=email, password=pass1)
+#         user.save()
+#         messages.success(request, "Account created successfully! Please login.")
+#         return redirect('login')
+
+#     return render(request, 'signup.html')
+
+# def login_view(request):
+#     if request.method == "POST":
+#         username = request.POST.get('username')
+#         password = request.POST.get('pass')
+
+#         user = authenticate(request, username=username, password=password)
+
+#         if user is not None:
+#             login(request, user)
+#             messages.success(request, f"Welcome, {username}!")
+#             return redirect('home')
+#         else:
+#             messages.error(request, "Invalid username or password.")
+
+#     return render(request, 'login.html')
+
+# def LogoutPage(request):
+#     logout(request)
+#     messages.info(request, "You have been logged out.")
+#     return redirect('login')
+
+
+# # --- Core Application Views ---
+
+# def HomePage(request):
+#     return render(request, 'home.html')
+
+# def career_form_view(request):
+#     """
+#     Renders the career recommendation form (career_form2.html).
+#     This is what opens when 'Get Started!' is clicked.
+#     """
+#     return render(request, 'career_form2.html')
+
+
+
+
+
+
+# @csrf_exempt  # Use only for testing! Remove in production when using {% csrf_token %}
+# def career_recommendation(request):
+#     if request.method == 'POST':
+#         full_name = request.POST.get('name')
+#         gender = request.POST.get('gender')
+#         # age = request.POST.get('age')
+#         ug_course = request.POST.get('course')
+#         ug_specialization = request.POST.get('ug_specialization')
+#         cgpa = request.POST.get('cgpa')
+#         interests = request.POST.get('interests')
+#         skills = request.POST.get('skills')
+#         certifications = request.POST.get('certifications')
+#         is_working = request.POST.get('working')
+#         current_job_title = request.POST.get('job_title')
+#         # masters_field = request.POST.get('masters_field', 'N/A')
+
+#         prompt = (
+#             f"Student Details:\n"
+#             f"Name: {full_name}\n"
+#             f"Gender: {gender}\n"
+#             # f"Age: {age}\n"
+#             f"Undergraduate: {ug_course} in {ug_specialization}\n"
+#             f"CGPA: {cgpa}\n"
+#             f"Interests: {interests}\n"
+#             f"Skills: {skills}\n"
+#             f"Certifications: {certifications}\n"
+#             f"Currently Working: {is_working}\n"
+#             f"Job Title: {current_job_title}\n"
+#             # f"Master’s Degree Field: {masters_field}\n\n"
+#             f"Based on these details, suggest the top 3 most suitable career paths and explain why each fits the candidate."
+#         )
+
+#         try:
+#             if settings.DEBUG:
+#                 print(f"DEBUG: Attempting to use FULL GEMINI_API_KEY: {settings.GEMINI_API_KEY}")
+#             else:
+#                 print(f"DEBUG: Attempting to use GEMINI_API_KEY: {settings.GEMINI_API_KEY[:5]}...{settings.GEMINI_API_KEY[-5:]}")
+
+#             genai.configure(api_key=settings.GEMINI_API_KEY)
+#             model = genai.GenerativeModel("gemini-1.5-flash")
+#             response = model.generate_content(prompt)
+
+#             if response.text:
+#                 ai_reply = response.text.strip()
+#                 return render(request, 'career_result2.html', {
+#                     'recommendation': ai_reply,
+#                     'name': full_name,
+#                     'gender': gender,
+#                     # 'age': age,
+#                     'course': ug_course,
+#                     'ug_specialization': ug_specialization,
+#                     'cgpa': cgpa,
+#                     'interests': interests,
+#                     'skills': skills,
+#                     'certifications': certifications,
+#                     'working': is_working,
+#                     'job_title': current_job_title,
+#                     # 'masters_field': masters_field,
+#                 })
+#             else:
+#                 messages.error(request, 'No text content in AI response. It might have been blocked by safety settings or be an empty response.')
+#                 return render(request, 'career_form2.html', {'error_message': 'Could not get a recommendation. Please try again.'})
+
+#         except Exception as e:
+#             print(f"Error calling Gemini API: {e}")
+#             messages.error(request, f"Failed to get recommendation: {str(e)}")
+#             return render(request, 'career_form2.html', {'error_message': f"Failed to get recommendation: {str(e)}"})
+
+#     return redirect('career_form')
+
+
+
+
+
+
+
+# # --- Other Application Views ---
+
+# def about_view(request):
+#     return render(request, 'about.html')
+
+# def assessment_view(request):
+#     return render(request, 'assessment.html')
+
+# def profile_view(request):
+#     return render(request, 'profile.html')
+
+# def contact_view(request):
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         email = request.POST.get('email')
+#         message = request.POST.get('message')
+#         # Uncomment and ensure Contact model is correctly imported and defined.
+#         # from .models import Contact
+#         # Contact.objects.create(name=name, email=email, message=message)
+#         messages.success(request, "Your message has been sent!")
+#         return render(request, 'contact.html')
+
+#     return render(request, 'contact.html')
+
+# def search_view(request):
+#     query = request.GET.get('query', '').strip()
+
+#     # Uncomment and ensure Career, Skill, Course models are correctly imported and defined.
+#     # from .models import Career, Skill, Course
+#     # careers = Career.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
+#     # skills = Skill.objects.filter(Q(name__icontains=query) | Q(detail__icontains=query))
+#     # courses = Course.objects.filter(Q(name__icontains=query) | Q(overview__icontains=query))
+
+#     # Mock data if models are not yet defined (remove this if you uncomment models above)
+#     careers = []
+#     skills = []
+#     courses = []
+#     if query:
+#         if "data scientist" in query.lower():
+#             careers.append({'title': 'Data Scientist', 'description': 'Analyzes large datasets.'})
+#         if "python" in query.lower():
+#             skills.append({'name': 'Python', 'detail': 'Programming language.'})
+#         if "machine learning" in query.lower():
+#             courses.append({'name': 'Machine Learning Fundamentals', 'overview': 'Intro to ML algorithms.'})
+
+
+#     wiki_summary = None
+#     wiki_url = None
+
+#     if query:
+#         try:
+#             wiki_summary = wikipedia.summary(query, sentences=3, auto_suggest=True, redirect=True)
+#             wiki_page = wikipedia.page(query)
+#             wiki_url = wiki_page.url
+#         except wikipedia.exceptions.DisambiguationError as e:
+#             wiki_summary = f"Your search term is ambiguous. Possible options: {', '.join(e.options[:5])}"
+#         except wikipedia.exceptions.PageError:
+#             wiki_summary = "No Wikipedia page found for your query."
+#         except Exception as e:
+#             wiki_summary = f"Error fetching Wikipedia data: {e}"
+
+#     context = {
+#         'query': query,
+#         'careers': careers,
+#         'skills': skills,
+#         'courses': courses,
+#         'wiki_summary': wiki_summary,
+#         'wiki_url': wiki_url,
+#     }
+#     return render(request, 'search_results.html', context)
+
+# def thank_you(request):
+#     return render(request, 'thankyou.html')
+
+
+
+
+# ===================================================================================================================================================================
+
+
+
+
+
 
 # import json # Make sure this import is at the top
 # from django.shortcuts import render, redirect
@@ -378,7 +878,6 @@
 # def thank_you(request):
 #     return render(request, 'thankyou.html')
 
-
 # #=======================================================================================================================================================
 
 
@@ -519,13 +1018,13 @@
 # from .forms import ResumeInputForm
 # from .models import ResumeInput
 
-# # Your Gemini API Key has been updated here.
+
 # API_KEY = "AIzaSyAWKyx5YW-bbgUkwi6rjohVvq3lzTc8k-w" 
 
-# @login_required # Requires user to be logged in
+# @login_required 
 # def resume_builder_view(request):
 #     generated_resume_text = None
-#     form = ResumeInputForm() # Initialize form for GET or initial render
+#     form = ResumeInputForm() 
 
 #     if request.method == 'POST':
 #         form = ResumeInputForm(request.POST)
@@ -759,6 +1258,7 @@
 #     return render(request, 'career_result2.html', context)
 
 
+# # ==========================================================================================================================================
 
 
 
@@ -767,23 +1267,12 @@
 
 
 
+# from django.shortcuts import render, redirect
 
+# # ... other view functions
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# def ai_career_assistant(request):
+#     return render(request, 'ai_career_assistant.html')
 
 
 
@@ -878,172 +1367,10 @@ def career_form_view(request):
 #=======================================================================================================================================================
 
 
-# from django.contrib.auth.decorators import login_required
-# @csrf_exempt # Consider removing this if using Django's {% csrf_token %} in your form
-# def career_recommendation(request):
-#     if request.method == 'POST':
-#         # Retrieve all form data
-#         # Using .get() with a default value is good practice for robustness
-#         name = request.POST.get('name', 'N/A')
-#         gender = request.POST.get('gender', 'N/A')
-#         age = request.POST.get('age', 'N/A')
-#         course = request.POST.get('course', 'N/A')
-#         ug_specialization = request.POST.get('ug_specialization', 'N/A')
-#         cgpa = request.POST.get('cgpa', 'N/A')
-#         interests = request.POST.get('interests', 'N/A')
-#         skills = request.POST.get('skills', 'N/A')
-#         certifications = request.POST.get('certifications', 'N/A')
-#         working = request.POST.get('working', 'No') # Default to 'No' if not provided
-#         job_title = request.POST.get('job_title', 'N/A')
-#         masters_field = request.POST.get('masters_field', 'N/A')
-
-#         # Constructing the prompt for Gemini API
-#         prompt = (
-#             f"Based on the following student details, suggest the top 3 most suitable career paths and explain why each fits the candidate.\n"
-#             f"Format your entire response strictly as a JSON object with the following structure:\n"
-#             f'{{\n'
-#             f'  "recommendation_text": "Your detailed text recommendation here."\n'
-#             f'}}\n\n'
-#             f"DO NOT include any introductory or concluding text outside the JSON. "
-#             f"Ensure the JSON is perfectly valid and unescaped.\n\n"
-#             f"Student Details:\n"
-#             f"Name: {name}\n"
-#             f"Gender: {gender}\n"
-#             f"Age: {age}\n"
-#             f"Undergraduate: {course} in {ug_specialization}\n"
-#             f"CGPA: {cgpa}\n"
-#             f"Interests: {interests}\n"
-#             f"Skills: {skills}\n"
-#             f"Certifications: {certifications}\n"
-#             f"Currently Working: {working}\n"
-#             f"Job Title: {job_title}\n"
-#             f"Master’s Degree Field: {masters_field}\n"
-#         )
-
-#         recommendation_text = "No recommendation generated." # Default message
-
-#         try:
-#             genai.configure(api_key=settings.GEMINI_API_KEY)
-#             model = genai.GenerativeModel("gemini-1.5-flash")
-#             response = model.generate_content(prompt)
-
-#             if response and response.text:
-#                 try:
-#                     # Clean the raw text to ensure it's valid JSON
-#                     # Gemini often wraps JSON in triple backticks and 'json' tag
-#                     clean_text = response.text.strip()
-#                     if clean_text.startswith('```json'):
-#                         clean_text = clean_text[len('```json'):].strip()
-#                     if clean_text.endswith('```'):
-#                         clean_text = clean_text[:-len('```')].strip()
-
-#                     ai_data = json.loads(clean_text)
-#                     recommendation_text = ai_data.get('recommendation_text', recommendation_text)
-
-#                     # Optional: Log the successful AI response
-#                     print(f"Successfully received AI recommendation for {name}")
-
-#                 except json.JSONDecodeError as e:
-#                     print(f"ERROR: Could not decode JSON from Gemini API: {e}")
-#                     print(f"RAW AI Response (problematic): {response.text}")
-#                     messages.error(request, "Failed to parse AI recommendation. Please try again or refine your input.")
-#                     recommendation_text = "Error: AI recommendation could not be processed."
-#                 except Exception as e:
-#                     print(f"ERROR processing AI response: {type(e).__name__}, Message: {str(e)}")
-#                     messages.error(request, f"An unexpected error occurred with AI processing: {str(e)}")
-#                     recommendation_text = "An unexpected error occurred."
-#             else:
-#                 messages.error(request, "Empty or invalid response from AI. Please try again.")
-
-#         except Exception as e:
-#             print(f"Error calling Gemini API: {type(e).__name__}, Message: {str(e)}")
-#             messages.error(request, f"Failed to get recommendation from AI: {str(e)}")
-#             # If AI call fails, render the form again with an error
-#             return render(request, 'career_form.html', {'error_message': f"Failed to get recommendation: {str(e)}"})
-
-#         # Prepare the data to be stored in the session for the dashboard
-#         # Only include data that you want to display on the dashboard
-#         user_dashboard_data = {
-#             'user_input': { # Group original input if needed
-#                 'name': name,
-#                 'gender': gender,
-#                 'age': age,
-#                 'course': course,
-#                 'ug_specialization': ug_specialization,
-#                 'cgpa': cgpa,
-#                 'interests': interests,
-#                 'skills': skills,
-#                 'certifications': certifications,
-#                 'working': working,
-#                 'job_title': job_title,
-#                 'masters_field': masters_field,
-#             },
-#             'ai_recommendation': recommendation_text,
-#             # Add any other derived data you want on the dashboard
-#         }
-
-#         # Store this data in the user's session
-#         request.session['user_dashboard_data'] = user_dashboard_data
-#         messages.success(request, "Your personalized career recommendation is ready!")
-
-#         # Redirect the user to the dashboard page
-#         return render(request, 'career_result2.html', {
-#             'name': name,
-#             'gender': gender,
-#             'age': age,
-#             'course': course,
-#             'ug_specialization': ug_specialization,
-#             'cgpa': cgpa,
-#             'interests': interests,
-#             'skills': skills,
-#             'certifications': certifications,
-#             'working': working,
-#             'job_title': job_title,
-#             'masters_field': masters_field,
-#             'recommendation': recommendation_text,
-#         })
-
-#     # If the request method is GET, redirect to the career form
-#     return redirect('career_form')
-
-
-
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render, redirect
-from django.conf import settings
-import google.generativeai as genai
-import json
-from django.contrib import messages
-
-# @login_required # Uncomment this line if you want to require user login for this view
-@csrf_exempt # Consider removing this if using Django's {% csrf_token %} in your form for better security
+@csrf_exempt
 def career_recommendation(request):
-    # Initialize all form data variables with default values.
-    # This ensures they are always defined and available for rendering
-    # career_result2.html, even if an error occurs during AI processing.
-    name = request.POST.get('name', 'N/A')
-    gender = request.POST.get('gender', 'N/A')
-    age = request.POST.get('age', 'N/A')
-    course = request.POST.get('course', 'N/A')
-    ug_specialization = request.POST.get('ug_specialization', 'N/A')
-    cgpa = request.POST.get('cgpa', 'N/A')
-    interests = request.POST.get('interests', 'N/A')
-    skills = request.POST.get('skills', 'N/A')
-    certifications = request.POST.get('certifications', 'N/A')
-    working = request.POST.get('working', 'No')
-    job_title = request.POST.get('job_title', 'N/A')
-    masters_field = request.POST.get('masters_field', 'N/A')
-
-    # Initialize recommendation_text to a default error message.
-    # This will be updated with the AI's response if successful,
-    # or a more specific error message if an AI-related issue occurs.
-    recommendation_text = "No recommendation generated due to an error in processing your request."
-
     if request.method == 'POST':
-        # Re-retrieve form data for clarity that this is the data from the POST request.
-        # This is slightly redundant with the initial assignments but ensures the latest
-        # POST data is used.
         name = request.POST.get('name', 'N/A')
         gender = request.POST.get('gender', 'N/A')
         age = request.POST.get('age', 'N/A')
@@ -1057,12 +1384,11 @@ def career_recommendation(request):
         job_title = request.POST.get('job_title', 'N/A')
         masters_field = request.POST.get('masters_field', 'N/A')
 
-        # Constructing the prompt for Gemini API
         prompt = (
             f"Based on the following student details, suggest the top 3 most suitable career paths and explain why each fits the candidate.\n"
             f"Format your entire response strictly as a JSON object with the following structure:\n"
             f'{{\n'
-            f'  "recommendation_text": "Your detailed text recommendation here."\n'
+            f'  "recommendation_text": "Your detailed text recommendation here."\n'
             f'}}\n\n'
             f"DO NOT include any introductory or concluding text outside the JSON. "
             f"Ensure the JSON is perfectly valid and unescaped.\n\n"
@@ -1080,83 +1406,30 @@ def career_recommendation(request):
             f"Master’s Degree Field: {masters_field}\n"
         )
 
+        recommendation_text = "No recommendation generated."
+
         try:
-            # Configure Gemini API with the API key from Django settings
-            genai.configure(api_key=settings.GEMINI_API_KEY)
+            # genai.configure(api_key=settings.GEMINI_API_KEY)
+            genai.configure(api_key="AIzaSyCHaUxDOVTKPdiiVhPx4BwAlhGXbcaXIPE")
             model = genai.GenerativeModel("gemini-1.5-flash")
-            # Make the API call to generate content
             response = model.generate_content(prompt)
 
-            # Check if a response was received and it contains text
             if response and response.text:
-                try:
-                    # Clean the raw text to ensure it's valid JSON.
-                    # Gemini often wraps JSON in triple backticks and 'json' tag,
-                    # which needs to be removed for successful parsing.
-                    clean_text = response.text.strip()
-                    if clean_text.startswith('```json'):
-                        clean_text = clean_text[len('```json'):].strip()
-                    if clean_text.endswith('```'):
-                        clean_text = clean_text[:-len('```')].strip()
+                clean_text = response.text.strip()
+                if clean_text.startswith('```json'):
+                    clean_text = clean_text[len('```json'):].strip()
+                if clean_text.endswith('```'):
+                    clean_text = clean_text[:-len('```')].strip()
 
-                    # Parse the cleaned JSON text
-                    ai_data = json.loads(clean_text)
-                    # Extract the recommendation text, providing a fallback if the key is missing
-                    recommendation_text = ai_data.get('recommendation_text', "AI response was received but could not find the recommendation text.")
-                    messages.success(request, "Your personalized career recommendation is ready!")
-                    print(f"Successfully received AI recommendation for {name}")
-
-                except json.JSONDecodeError as e:
-                    # Handle cases where the AI's response is not valid JSON
-                    print(f"ERROR: Could not decode JSON from Gemini API: {e}")
-                    print(f"RAW AI Response (problematic): {response.text}")
-                    messages.error(request, "Failed to parse AI recommendation. The AI returned an unreadable format. Please try again or refine your input.")
-                    recommendation_text = f"Error: AI recommendation could not be processed due to a JSON parsing issue: {e}"
-                except Exception as e:
-                    # Catch any other unexpected errors during AI response processing
-                    print(f"ERROR processing AI response: {type(e).__name__}, Message: {str(e)}")
-                    messages.error(request, f"An unexpected error occurred while processing the AI response: {str(e)}")
-                    recommendation_text = f"An unexpected error occurred during AI response processing: {e}"
+                ai_data = json.loads(clean_text)
+                recommendation_text = ai_data.get('recommendation_text', recommendation_text)
             else:
-                # Handle cases where the AI returns an empty or non-text response
-                messages.error(request, "Empty or invalid response from AI. Please try again.")
-                recommendation_text = "AI returned an empty or invalid response. Please try again."
+                recommendation_text = "No text content in AI response. Please try again."
 
         except Exception as e:
-            # This is the critical change from previous versions:
-            # Instead of redirecting or rendering a different template here,
-            # we set an informative error message for 'recommendation_text'
-            # and let the code continue to the final render of career_result2.html.
-            print(f"Error calling Gemini API: {type(e).__name__}, Message: {str(e)}")
-            messages.error(request, f"Failed to get recommendation from AI service: {str(e)}. Please check your API key or internet connection.")
-            recommendation_text = f"Failed to connect to AI service or encountered an API error: {str(e)}"
+            recommendation_text = f"Failed to get recommendation: {str(e)}"
 
-        # Prepare the data to be stored in the user's session for the dashboard.
-        # This data will persist across requests if the user navigates to a dashboard page.
-        user_dashboard_data = {
-            'user_input': {
-                'name': name,
-                'gender': gender,
-                'age': age,
-                'course': course,
-                'ug_specialization': ug_specialization,
-                'cgpa': cgpa,
-                'interests': interests,
-                'skills': skills,
-                'certifications': certifications,
-                'working': working,
-                'job_title': job_title,
-                'masters_field': masters_field,
-            },
-            'ai_recommendation': recommendation_text, # This will contain the AI output or an error message
-        }
-
-        # Store this prepared data in the user's session
-        request.session['user_dashboard_data'] = user_dashboard_data
-
-        # This is the final rendering step for POST requests.
-        # It will ALWAYS render 'career_result2.html' and pass all collected data,
-        # including the AI recommendation (or the error message if an issue occurred).
+        # Always render to career_result2.html, passing all relevant context
         return render(request, 'career_result2.html', {
             'name': name,
             'gender': gender,
@@ -1170,14 +1443,11 @@ def career_recommendation(request):
             'working': working,
             'job_title': job_title,
             'masters_field': masters_field,
-            'recommendation': recommendation_text, # Pass the (potentially error) recommendation text
+            'recommendation': recommendation_text,
         })
 
-    # If the request method is GET (e.g., direct URL access), redirect to the career form.
-    # This prevents direct access to the recommendation processing view without form submission.
+    # If GET, redirect to the form
     return redirect('career_form')
-
-
 
 #=======================================================================================================================================================
 
@@ -1433,7 +1703,7 @@ def generate_test(request, test_type): # test_type is correctly received here
     })
 
     try:
-        genai.configure(api_key=settings.GEMINI_API_KEY)
+        genai.configure(api_key="AIzaSyCHaUxDOVTKPdiiVhPx4BwAlhGXbcaXIPE")
         model = genai.GenerativeModel("gemini-1.5-flash") # Or "gemini-pro" for higher quality if needed
         response = model.generate_content(gemini_prompt)
 
@@ -1483,7 +1753,8 @@ from .forms import ResumeInputForm
 from .models import ResumeInput
 
 # Your Gemini API Key has been updated here.
-API_KEY = "AIzaSyAWKyx5YW-bbgUkwi6rjohVvq3lzTc8k-w" 
+API_KEY = "AIzaSyBOT4RuGOfO1ro88EGb4FttpQcCao5hPGc" 
+
 
 @login_required # Requires user to be logged in
 def resume_builder_view(request):
@@ -1727,10 +1998,211 @@ def career_result_view(request):
 
 
 
+    from django.shortcuts import render
+
+# ... (other view functions)
+
+def ai_career_assistant(request):
+    """
+    Renders the AI career assistant HTML page.
+    """
+    # The name here must match your HTML file's name.
+    return render(request, 'AICareerAssistant.html')
 
 
+
+
+
+
+    # C:\Users\yuvraj\Desktop\Career-Guidance-System - Copy\loginform\app1\views.py
+
+# You might need to import these at the top of your file
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+# ... (all your other views, like login_view, career_form_view, etc.)
+
+class IndustryTrendsAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        # Add your logic here to fetch industry trends data.
+        # For now, you can just return a placeholder response.
+        data = {
+            "message": "This is a placeholder for industry trends data."
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
+# ... (the rest of your views.py file)
+
+
+# C:\Users\yuvraj\Desktop\Career-Guidance-System - Copy\loginform\app1\views.py
 
 from django.shortcuts import render
 
-def ai_career_assistant(request):
-    return render(request, 'AICareerAssistant.html')
+# ... (all your other view functions)
+
+def news_feed_page(request):
+    """
+    Renders the HTML page for the industry trends news feed.
+    """
+    return render(request, 'news_feed_page.html')
+
+# ... (the rest of your views.py file)
+
+
+
+
+# ======================================================================================================================
+
+
+
+# your_app/views.py
+
+from django.shortcuts import render
+
+# ... (other view functions you may have)
+
+def company_tests_page(request):
+    """
+    This function will render the HTML template for the company tests page.
+    It's what gets called when a user visits the '/tests/' URL.
+    """
+    # This renders the correct HTML page.
+    return render(request, 'company_tests_page.html')
+
+
+
+
+# ======================================================================================================================
+
+# def company_details_page(request, company_slug):
+#     """
+#     This new function will handle the company details page.
+#     It receives the company_slug from the URL and passes it to the template.
+#     The slug is a clean version of the company name (e.g., 'tcs').
+#     """
+#     return render(request, 'company_details_page.html', {'company_slug': company_slug})
+
+# In your views.py file
+from django.shortcuts import render
+from django.conf import settings
+import google.generativeai as genai
+import json
+
+# Configure Gemini with your API key
+genai.configure(api_key="AIzaSyCxnp6Xz1QbH0FsuUz6wCrfHdGeJomLVfE")
+
+def company_details_page(request, company_slug):
+    company_name = company_slug.replace('-', ' ').title()
+    
+    # Simple prompt to get a 2-3 line summary
+    prompt = f"Provide a simple, 2-3 sentence summary about the company '{company_name}' and its main business area."
+    
+    try:
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(prompt)
+        
+        # Pass the Gemini response directly to the template
+        context = {
+            'company_name': company_name,
+            'summary': response.text,
+        }
+        
+    except Exception as e:
+        # Handle errors gracefully
+        context = {
+            'company_name': company_name,
+            'summary': f"Could not retrieve details for {company_name}. Error: {e}",
+        }
+        
+    return render(request, 'company_details.html', context)
+
+from django.shortcuts import render
+from django.conf import settings
+from django.http import JsonResponse
+import google.generativeai as genai
+import json
+
+# Make sure your API key is configured in settings.py
+genai.configure(api_key=settings.GEMINI_API_KEY)
+
+def get_company_info_api(request, company_slug):
+    """
+    A Django API endpoint to get company info from Gemini.
+    """
+    company_name = company_slug.replace('-', ' ').title()
+
+    prompt = f"""
+    Provide a brief, 2-3 sentence summary about the company "{company_name}".
+    Respond only with the summary text, with no extra formatting or conversation.
+    """
+    try:
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(prompt)
+        
+        return JsonResponse({
+            'company_name': company_name,
+            'summary': response.text,
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'error': 'Failed to retrieve company information.',
+            'details': str(e)
+        }, status=500)
+
+
+
+
+
+
+
+# views.py
+
+from django.shortcuts import render
+from django.conf import settings
+from django.http import JsonResponse
+import requests
+import json
+
+# Your existing get_company_info_api view...
+
+def get_realtime_jobs(request):
+    # This is a sample URL, replace it with your chosen API's endpoint
+    api_url = "https://api.examplejobboard.com/v1/jobs"
+
+    # Define the search parameters. You can add more, like 'location', 'salary_min', etc.
+    params = {
+        'api_key': settings.JOB_API_KEY,
+        'search': 'Django developer',  # Example search query
+        'results_per_page': 10
+    }
+    
+    try:
+        # Make the GET request to the job board API
+        response = requests.get(api_url, params=params)
+        
+        # Raise an exception for bad status codes (4xx or 5xx)
+        response.raise_for_status() 
+        
+        # Parse the JSON response
+        job_data = response.json()
+        
+        # Extract the list of jobs from the response. The key might vary
+        # (e.g., 'data', 'jobs', 'listings'). Check your API's documentation.
+        jobs = job_data.get('jobs', [])
+        
+        # Pass the jobs to the template
+        context = {
+            'jobs': jobs,
+            'error': None
+        }
+    
+    except requests.exceptions.RequestException as e:
+        # Handle API request errors (e.g., network issues, invalid key, etc.)
+        context = {
+            'jobs': [],
+            'error': f"Failed to retrieve jobs: {e}"
+        }
+        
+    return render(request, 'jobs.html', context)
