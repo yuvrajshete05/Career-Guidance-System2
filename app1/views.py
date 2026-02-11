@@ -1300,25 +1300,40 @@ import google.generativeai as genai
 
 def SignupPage(request):
     if request.method == 'POST':
-        uname = request.POST.get('username')
-        email = request.POST.get('email')
-        pass1 = request.POST.get('password1')
-        pass2 = request.POST.get('password2')
+        uname = request.POST.get('username', '').strip()
+        email = request.POST.get('email', '').strip()
+        pass1 = request.POST.get('password1', '').strip()
+        pass2 = request.POST.get('password2', '').strip()
+
+        # Validate all fields are provided
+        if not all([uname, email, pass1, pass2]):
+            messages.error(request, "All fields are required.")
+            return render(request, 'signup.html')
+
+        # Check password length
+        if len(pass1) < 4:
+            messages.error(request, "Password must be at least 4 characters long.")
+            return render(request, 'signup.html')
 
         if pass1 != pass2:
             messages.error(request, "Passwords do not match.")
-            return render(request, 'signup.html', {'message': "Passwords do not match."})
+            return render(request, 'signup.html')
+        
         if User.objects.filter(username=uname).exists():
             messages.error(request, "Username already exists.")
-            return render(request, 'signup.html', {'message': "Username already exists."})
+            return render(request, 'signup.html')
+        
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already registered.")
-            return render(request, 'signup.html', {'message': "Email already registered."})
+            return render(request, 'signup.html')
 
-        user = User.objects.create_user(username=uname, email=email, password=pass1)
-        user.save()
-        messages.success(request, "Account created successfully! Please login.")
-        return redirect('login')
+        try:
+            user = User.objects.create_user(username=uname, email=email, password=pass1)
+            messages.success(request, "Account created successfully! Please login.")
+            return redirect('login')
+        except Exception as e:
+            messages.error(request, f"Error creating account: {str(e)}")
+            return render(request, 'signup.html')
 
     return render(request, 'signup.html')
 
@@ -1326,9 +1341,15 @@ def SignupPage(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('pass')
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('pass', '').strip()
 
+        # Validate form inputs
+        if not username or not password:
+            messages.error(request, "Please enter both username and password.")
+            return render(request, 'login.html')
+
+        # Attempt to authenticate
         user = authenticate(request, username=username, password=password)
 
         if user is not None:

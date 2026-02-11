@@ -163,6 +163,50 @@
   {% csrf_token %}
   <h3>Signup Here</h3>
 
+  {% if messages %}
+  <div style="margin-bottom: 20px;">
+    {% for message in messages %}
+      <div style="
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        {% if message.tags %}
+          {% if 'error' in message.tags %}
+            background-color: #ff6b6b;
+            color: white;
+            border: 1px solid #c92a2a;
+          {% elif 'success' in message.tags %}
+            background-color: #51cf66;
+            color: white;
+            border: 1px solid #2f9e44;
+          {% else %}
+            background-color: #4dabf7;
+            color: white;
+            border: 1px solid #1971c2;
+          {% endif %}
+        {% endif %}
+      ">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if message %}
+  <div style="
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #ff6b6b;
+    color: white;
+    border: 1px solid #c92a2a;
+    font-size: 14px;
+  ">
+    {{ message }}
+  </div>
+  {% endif %}
+
   <div class="input-group">
     <input type="text" id="username" name="username" placeholder=" " required />
     <label for="username">Username</label>

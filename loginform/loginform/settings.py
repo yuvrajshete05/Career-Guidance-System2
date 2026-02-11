@@ -95,24 +95,21 @@ if config('DATABASE_URL', default=''):
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
 else:
-    DB_ENGINE = config('DB_ENGINE', default='django.db.backends.sqlite3')
-    
-    if DB_ENGINE == 'django.db.backends.sqlite3':
+    DATABASES = {
+        'default': {
+            'ENGINE': config('DB_ENGINE', default='django.db.backends.postgresql'),
+            'NAME': config('DB_NAME', default='career_db'),
+            'USER': config('DB_USER', default='yuvraj05'),
+            'PASSWORD': config('DB_PASSWORD', default='yuvraj'),
+            'HOST': config('DB_HOST', default='127.0.0.1'),
+            'PORT': config('DB_PORT', default='5432', cast=int),
+        }
+    }
+    if DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql' and not config('DB_NAME', default=''):
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
                 'NAME': BASE_DIR / 'db.sqlite3',
-            }
-        }
-    else:
-        DATABASES = {
-            'default': {
-                'ENGINE': DB_ENGINE,
-                'NAME': config('DB_NAME', default='career_db'),
-                'USER': config('DB_USER', default='yuvraj05'),
-                'PASSWORD': config('DB_PASSWORD', default='yuvraj'),
-                'HOST': config('DB_HOST', default='127.0.0.1'),
-                'PORT': config('DB_PORT', default='5432', cast=int),
             }
         }
 
